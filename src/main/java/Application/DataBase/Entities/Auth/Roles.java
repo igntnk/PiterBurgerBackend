@@ -1,4 +1,4 @@
-package DataBase.Entities.Auth;
+package Application.DataBase.Entities.Auth;
 
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class Roles{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "cred_id", referencedColumnName = "cred_id")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})

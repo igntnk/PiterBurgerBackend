@@ -1,4 +1,4 @@
-package DataBase.Entities.Auth;
+package Application.DataBase.Entities.Auth;
 
 public enum BaseRole {
     USER("ROLE_USER","USER"),

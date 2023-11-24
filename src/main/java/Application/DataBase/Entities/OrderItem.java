@@ -1,8 +1,7 @@
-package DataBase.Entities;
+package Application.DataBase.Entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 

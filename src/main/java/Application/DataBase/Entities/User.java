@@ -1,7 +1,6 @@
-package DataBase.Entities;
+package Application.DataBase.Entities;
 
-import DataBase.Entities.Auth.Credential;
-import lombok.AllArgsConstructor;
+import Application.DataBase.Entities.Auth.Credential;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
@@ -10,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 public class User {

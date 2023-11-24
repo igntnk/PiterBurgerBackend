@@ -1,9 +1,9 @@
-package DataBase.Entities.Auth;
+package Application.DataBase.Entities.Auth;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-import DataBase.Entities.User;
+import Application.DataBase.Entities.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

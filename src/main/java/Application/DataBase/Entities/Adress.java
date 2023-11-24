@@ -1,6 +1,5 @@
-package DataBase.Entities;
+package Application.DataBase.Entities;
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
