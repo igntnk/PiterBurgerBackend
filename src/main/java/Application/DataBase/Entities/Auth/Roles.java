@@ -18,12 +18,10 @@ public class Roles{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cred_id", referencedColumnName = "cred_id")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
-    private Credential credential;
-
     @Enumerated(EnumType.STRING)
     private BaseRole role;
+
+    public Roles(BaseRole role) {
+        this.role = role;
+    }
 }

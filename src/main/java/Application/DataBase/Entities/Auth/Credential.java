@@ -7,10 +7,12 @@ import Application.DataBase.Entities.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,10 +22,11 @@ import java.util.Set;
 @NoArgsConstructor
 public class Credential{
 //    static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    public Credential(boolean enabled, String email, String password, String name, String surname,Set<Roles> roles){
+    public Credential(boolean enabled, String email, String password,User user,Set<Roles> roles){
         this.password = password;
         this.enabled = enabled;
         this.email = email;
+        this.user = user;
         this.roles = roles;
     }
 
@@ -46,7 +49,9 @@ public class Credential{
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "credential")
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="cred_id", updatable = true)
     private Set<Roles> roles;
+
 }

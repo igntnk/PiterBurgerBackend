@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "task")
@@ -39,13 +42,25 @@ public class Task {
     @Temporal(TemporalType.TIMESTAMP)
     private Date doneDate;
 
-    @OneToOne(mappedBy = "task")
-    private Status status;
+    @Enumerated(EnumType.STRING)
+    private BaseStatus status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User owner;
 
-    @OneToMany(mappedBy = "task")
-    private List<TaskItem> items;
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="task_id", updatable = true)
+    private Set<TaskItem> items;
+
+
+    public Task(String comment, Date creationDate,
+                BaseStatus status, User owner, Set<TaskItem> items) {
+        this.comment = comment;
+        this.creationDate = creationDate;
+        this.status = status;
+        this.owner = owner;
+        this.items = items;
+    }
 }

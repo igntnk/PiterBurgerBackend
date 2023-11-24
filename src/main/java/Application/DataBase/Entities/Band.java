@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Band")
@@ -21,13 +21,14 @@ public class Band {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
-    private String description;
-
     @ManyToMany
     @JoinTable(
             name = "Band_Product",
             joinColumns =  @JoinColumn(name = "band_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+    private Set<Product> products;
+
+    public Band(String name) {
+        this.name = name;
+    }
 }

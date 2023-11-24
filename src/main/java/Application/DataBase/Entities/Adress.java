@@ -17,13 +17,17 @@ public class Adress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Adress(boolean active, User owner) {
+    public Adress(boolean active, String address,User owner) {
         this.active = active;
         this.owner = owner;
+        this.address = address;
     }
 
     @Column(name = "active")
     private boolean active;
+
+    @Column(name = "adress")
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

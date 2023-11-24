@@ -24,7 +24,9 @@ public class TaskItem {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
-    @ManyToOne
-    @JoinColumn(name= "task_id", referencedColumnName = "task_id")
-    private Task task;
+
+    public TaskItem(int count,Product product) {
+        this.count = count;
+        this.product = product;
+    }
 }
