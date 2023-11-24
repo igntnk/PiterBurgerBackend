@@ -1,6 +1,7 @@
 package Application.DataBase.Entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "status")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Status {
 
     @Id
@@ -21,8 +23,6 @@ public class Status {
     private String status;
 
     @OneToOne
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     @JoinColumn(name = "task_id", referencedColumnName = "task_id")
     private Task task;
 }

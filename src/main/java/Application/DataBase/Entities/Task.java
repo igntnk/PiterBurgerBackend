@@ -1,6 +1,7 @@
 package Application.DataBase.Entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "task")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Task {
     @Id
     @Column(name = "task_id")
@@ -38,8 +40,6 @@ public class Task {
     private Date doneDate;
 
     @OneToOne(mappedBy = "task")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private Status status;
 
     @ManyToOne
@@ -47,7 +47,5 @@ public class Task {
     private User owner;
 
     @OneToMany(mappedBy = "task")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private List<TaskItem> items;
 }

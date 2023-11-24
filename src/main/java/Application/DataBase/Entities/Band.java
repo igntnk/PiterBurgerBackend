@@ -1,6 +1,7 @@
 package Application.DataBase.Entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "Band")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Band {
     @Id
     @Column(name = "band_id")

@@ -12,7 +12,6 @@ import org.hibernate.annotations.Cascade;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Roles{
     @Id
     @Column(name = "role_id")

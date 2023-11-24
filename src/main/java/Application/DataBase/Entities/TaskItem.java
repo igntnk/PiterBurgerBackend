@@ -1,6 +1,7 @@
 package Application.DataBase.Entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "task_item")
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskItem {
     @Id
     @Column(name = "task_item_id")

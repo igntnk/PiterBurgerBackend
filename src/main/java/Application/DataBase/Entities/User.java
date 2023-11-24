@@ -2,6 +2,7 @@ package Application.DataBase.Entities;
 
 import Application.DataBase.Entities.Auth.Credential;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -23,8 +25,6 @@ public class User {
     private String FIO;
 
     @OneToMany(mappedBy = "owner")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private List<Adress> adress;
 
     public User(String FIO) {
@@ -32,13 +32,9 @@ public class User {
     }
 
     @OneToMany(mappedBy = "owner")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private List<Task> tasks;
 
     @OneToOne(mappedBy = "user")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private Credential credential;
 
 }

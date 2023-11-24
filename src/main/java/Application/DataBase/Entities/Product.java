@@ -1,6 +1,7 @@
 package Application.DataBase.Entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Table(name = "product")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Product {
     @Id
     @Column(name = "product_id")
@@ -27,12 +29,8 @@ public class Product {
     private int price;
 
     @OneToOne(mappedBy = "product" )
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private TaskItem orderItem;
 
     @ManyToMany(mappedBy = "products")
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
-            org.hibernate.annotations.CascadeType.REMOVE})
     private List<Band> groups;
 }

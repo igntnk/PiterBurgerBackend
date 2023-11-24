@@ -11,11 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @GetMapping("users")
-    public Iterable<User> getFilteredData(){
-        return userRepository.findAll();
-    }
 }
