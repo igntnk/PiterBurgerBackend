@@ -9,12 +9,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "task")
 @Getter
 @Setter
-public class Order {
+public class Task {
     @Id
-    @Column(name = "order_id")
+    @Column(name = "task_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -37,7 +37,7 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date doneDate;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "task")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
     private Status status;
@@ -46,8 +46,8 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User owner;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "task")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
-    private List<OrderItem> items;
+    private List<TaskItem> items;
 }

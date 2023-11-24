@@ -6,12 +6,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "task_item")
 @Getter
 @Setter
-public class OrderItem {
+public class TaskItem {
     @Id
-    @Column(name = "order_item_id")
+    @Column(name = "task_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -23,6 +23,6 @@ public class OrderItem {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name= "order_id", referencedColumnName = "order_id")
-    private Order order;
+    @JoinColumn(name= "task_id", referencedColumnName = "task_id")
+    private Task task;
 }

@@ -29,10 +29,10 @@ public class Product {
     @OneToOne(mappedBy = "product" )
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
-    private OrderItem orderItem;
+    private TaskItem orderItem;
 
     @ManyToMany(mappedBy = "products")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
-    private List<Group> groups;
+    private List<Band> groups;
 }

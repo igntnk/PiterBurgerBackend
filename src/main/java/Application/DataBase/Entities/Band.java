@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "group")
+@Table(name = "Band")
 @Getter
 @Setter
-public class Group {
+public class Band {
     @Id
-    @Column(name = "group_id")
+    @Column(name = "band_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -24,8 +24,8 @@ public class Group {
 
     @ManyToMany
     @JoinTable(
-            name = "Group_Product",
-            joinColumns =  @JoinColumn(name = "group_id"),
+            name = "Band_Product",
+            joinColumns =  @JoinColumn(name = "band_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 }

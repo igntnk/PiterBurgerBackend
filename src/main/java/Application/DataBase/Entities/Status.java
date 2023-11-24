@@ -23,6 +23,6 @@ public class Status {
     @OneToOne
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private Order order;
+    @JoinColumn(name = "task_id", referencedColumnName = "task_id")
+    private Task task;
 }

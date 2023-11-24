@@ -34,7 +34,7 @@ public class User {
     @OneToMany(mappedBy = "owner")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
             org.hibernate.annotations.CascadeType.REMOVE})
-    private List<Order> order;
+    private List<Task> tasks;
 
     @OneToOne(mappedBy = "user")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE,
