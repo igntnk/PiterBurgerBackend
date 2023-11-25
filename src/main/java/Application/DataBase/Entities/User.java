@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,17 +27,23 @@ public class User {
     @Column(name = "fio")
     private String FIO;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Adress> adress;
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="user_id", updatable = true)
+    private Set<Adress> adress;
 
     public User(String FIO) {
         this.FIO = FIO;
     }
 
-    @OneToMany(mappedBy = "owner")
-    private List<Task> tasks;
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="user_id", updatable = true)
+    private Set<Task> tasks;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name="user_id", updatable = true)
     private Credential credential;
 
 }

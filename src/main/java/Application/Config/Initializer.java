@@ -40,25 +40,27 @@ public class Initializer implements CommandLineRunner {
         User user2 = new User("Pushkin Alexandr Sergeevich");
         User user3 = new User("Tolstoy Lev Nikolaevich");
         User user4 = new User("Shakespeare William");
-        userRepository.saveAll(Arrays.asList(user1,user2,user3,user4));
 
-        Credential cred1 = new Credential(true,"ignatik@vk.com","12345",user1, Stream.of(
-                new Roles(BaseRole.SUPER_USER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet()));
-        Credential cred2 = new Credential(true,"pushok@vk.com","12345",user2,Stream.of(
-                new Roles(BaseRole.MANAGER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet()));
-        Credential cred3 = new Credential(true,"tolstik@vk.com","12345",user3,Stream.of(
-                new Roles(BaseRole.WORKER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet()));
-        Credential cred4 = new Credential(true,"shaker@vk.com","12345",user4,Stream.of(
-                new Roles(BaseRole.CUSTOMER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet()));
+        user1.setCredential(new Credential(true,"ignatik@vk.com","12345", Stream.of(
+                new Roles(BaseRole.SUPER_USER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+        user2.setCredential(new Credential(true,"pushok@vk.com","12345",Stream.of(
+                new Roles(BaseRole.MANAGER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+        user3.setCredential(new Credential(true,"tolstik@vk.com","12345",Stream.of(
+                new Roles(BaseRole.WORKER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+        user4.setCredential(new Credential(true,"shaker@vk.com","12345",Stream.of(
+                new Roles(BaseRole.CUSTOMER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
 
-        credentialRepository.saveAll(Arrays.asList(cred1,cred2,cred3,cred4));
+        user1.setAdress(Stream.of(new Adress(true,"Lizukova 47"),
+                new Adress(false,"Krestianina 6a")).
+                collect(Collectors.toSet()));
+        user2.setAdress(Stream.of(new Adress(true,"Koltsovskaya 3")).
+                collect(Collectors.toSet()));
+        user3.setAdress(Stream.of(new Adress(true,"Kutsugina 44"),
+                new Adress(false,"Kirova 129")).
+                collect(Collectors.toSet()));
+        user4.setAdress(Stream.of(new Adress(true,"Lizukova 46")).
+                collect(Collectors.toSet()));
 
-        adressRepository.save(new Adress(true,"Lizukova 47",user1));
-        adressRepository.save(new Adress(false,"Krestianina 6a",user1));
-        adressRepository.save(new Adress(true,"Koltsovskaya 3",user2));
-        adressRepository.save(new Adress(true,"Kutsugina 44",user3));
-        adressRepository.save(new Adress(false,"Kirova 129",user3));
-        adressRepository.save(new Adress(true,"Lizukova 46",user4));
 
         Product p1 = new Product("Чизбургер","Классический гамбургер с добавлением сыра",69, true);
         Product p2 = new Product("Гамбургер","Булка, мясо, лук, кетчуп, горчица",59, true);
@@ -93,18 +95,22 @@ public class Initializer implements CommandLineRunner {
 
         bandRepository.saveAll(Arrays.asList(b1,b2,b3,b4,b5));
 
-        Task t1 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,user1,
-                Stream.of(new TaskItem(2,p10),new TaskItem(1,p3),new TaskItem(2,p2)).collect(Collectors.toSet()));
-        Task t2 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,user4,
-                Stream.of(new TaskItem(1,p2),new TaskItem(1,p13)).collect(Collectors.toSet()));
-        Task t3 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,user3,
-                Stream.of(new TaskItem(28,p1)).collect(Collectors.toSet()));
-        Task t4 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,user2,
-                Stream.of(new TaskItem(144,p2),new TaskItem(1,p3)).collect(Collectors.toSet()));
-        Task t5 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,user1,
-                Stream.of(new TaskItem(22,p6),new TaskItem(12,p3)).collect(Collectors.toSet()));
+        Task t1 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new TaskItem(2,p1),new TaskItem(1,p3),new TaskItem(2,p2)).collect(Collectors.toSet()));
+        Task t2 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new TaskItem(1,p13),new TaskItem(1,p2)).collect(Collectors.toSet()));
+        Task t3 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new TaskItem(28,p2)).collect(Collectors.toSet()));
+        Task t4 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new TaskItem(144,p1),new TaskItem(1,p5)).collect(Collectors.toSet()));
+        Task t5 = new Task("Удачи", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new TaskItem(22,p3),new TaskItem(12,p1)).collect(Collectors.toSet()));
 
+        user1.setTasks(Stream.of(t1,t2).collect(Collectors.toSet()));
+        user2.setTasks(Stream.of(t3).collect(Collectors.toSet()));
+        user3.setTasks(Stream.of(t4).collect(Collectors.toSet()));
+        user4.setTasks(Stream.of(t5).collect(Collectors.toSet()));
 
-        taskRepository.saveAll(Arrays.asList(t1,t2,t3,t4,t5));
+        userRepository.saveAll(Arrays.asList(user1,user2,user3,user4));
     }
 }

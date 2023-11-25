@@ -45,10 +45,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User owner;
-
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="task_id", updatable = true)
@@ -56,11 +52,10 @@ public class Task {
 
 
     public Task(String comment, Date creationDate,
-                BaseStatus status, User owner, Set<TaskItem> items) {
+                BaseStatus status, Set<TaskItem> items) {
         this.comment = comment;
         this.creationDate = creationDate;
         this.status = status;
-        this.owner = owner;
         this.items = items;
     }
 }

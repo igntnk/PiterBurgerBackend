@@ -22,11 +22,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class Credential{
 //    static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    public Credential(boolean enabled, String email, String password,User user,Set<Roles> roles){
+    public Credential(boolean enabled, String email, String password,Set<Roles> roles){
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-        this.user = user;
         this.roles = roles;
     }
 
@@ -45,9 +44,6 @@ public class Credential{
     @Column(name = "password")
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)

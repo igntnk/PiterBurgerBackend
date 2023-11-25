@@ -17,9 +17,8 @@ public class Adress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Adress(boolean active, String address,User owner) {
+    public Adress(boolean active, String address) {
         this.active = active;
-        this.owner = owner;
         this.address = address;
     }
 
@@ -29,7 +28,4 @@ public class Adress {
     @Column(name = "adress")
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User owner;
 }

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,8 +34,9 @@ public class Product {
     @Column(name = "enabled")
     private boolean enabled;
 
-    @OneToOne(mappedBy = "product" )
-    private TaskItem orderItem;
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "product")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<TaskItem> orderItem;
 
     @ManyToMany(mappedBy = "products")
     private Set<Band> groups;
