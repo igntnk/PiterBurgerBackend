@@ -10,6 +10,7 @@ import Application.DataBase.Repository.CredentialRepository;
 import Application.DataBase.Repository.RolesRepository;
 import Application.DataBase.Repository.TaskRepository;
 import Application.DataBase.Repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class AdminService {
 
     @Autowired
@@ -42,8 +44,9 @@ public class AdminService {
     public void createUser(UserDTO userRef, Roles role)
     {
         User newUser = new User(userRef.getFIO());
-        Credential newUserCredential = new Credential(true,userRef.getEmail(),"12345",newUser,
+        Credential newUserCredential = new Credential(true,userRef.getEmail(),"12345",
                 Stream.of(new Roles(BaseRole.CUSTOMER),role).collect(Collectors.toSet()));
+        newUser.setCredential(newUserCredential);
         userRepository.save(newUser);
     }
 
@@ -52,9 +55,11 @@ public class AdminService {
     }
 
     public void changeUserRole(Long user_id, Roles role){
-        userRepository.findById(user_id).ifPresent(user -> user.getCredential().setRoles(
-                Stream.of(new Roles(BaseRole.CUSTOMER),role).collect(Collectors.toSet())
-        ));
+        User changeUser = userRepository.findById(user_id).orElse(null);
+        assert changeUser != null;
+
+        changeUser.getCredential().setRoles(Stream.of(new Roles(BaseRole.CUSTOMER), role).collect(Collectors.toSet()));
+        userRepository.save(changeUser);
     }
 
     public void removeUser(Long user_id){

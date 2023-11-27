@@ -12,4 +12,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
         nativeQuery = true)
     public List<Product> getProductsByGroup(Long id);
 
+    List<Product> findAll();
+
 }

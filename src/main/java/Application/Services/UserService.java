@@ -1,9 +1,6 @@
 package Application.Services;
 
-import Application.DTO.BandDTO;
-import Application.DTO.TaskDTO;
-import Application.DTO.TaskItemDTO;
-import Application.DTO.UserDTO;
+import Application.DTO.*;
 import Application.DataBase.Entities.*;
 import Application.DataBase.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,9 @@ public class UserService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TaskItemRepository taskItemRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -47,15 +47,27 @@ public class UserService {
         return new Task();
     }
 
-    public Task createTask(Set<TaskItemDTO> productDTOSet, UserDTO userRef){
+    public void createTask(Set<TaskItemDTO> productDTOSet, UserDTO userRef){
         Set<TaskItem> productSet = new HashSet<>();
-        productDTOSet.stream().map(el -> productSet.add(new TaskItem(el.getCount(),productRepository.findById(el.getProduct()).get())));
+        productDTOSet.stream().map(el -> productSet.add(new TaskItem(el.getCount(),productRepository.findById(el.getProduct()).orElse(null))));
 
-        return new Task("",new Date(),BaseStatus.ACTIVE,userRepository.findById(userRef.getId()).get(),productSet);
+        Task createdTask = new Task("",new Date(),BaseStatus.ACTIVE,productSet);
+        Optional<User> userToAddTaskOpt = userRepository.findById(userRef.getId());
+        if(userToAddTaskOpt.isEmpty()){
+            throw new NoSuchElementException("User with " + userRef.getId() + " id not found");
+        }
+        User userToAddTask = userToAddTaskOpt.get();
+        userToAddTask.addTask(createdTask);
+
+        userRepository.save(userToAddTask);
     }
 
     public Task cancelTask(TaskDTO referTask){
-        Task taskToChange = taskRepository.findById(referTask.getId()).get();
+        Optional<Task> taskToChangeOpt = taskRepository.findById(referTask.getId());
+        if(taskToChangeOpt.isEmpty()){
+            throw new NoSuchElementException("Task with " + referTask.getId() + " id not found");
+        }
+        Task taskToChange = taskToChangeOpt.get();
         taskToChange.setStatus(BaseStatus.CANCELED);
 
         return taskRepository.save(taskToChange);
@@ -64,5 +76,19 @@ public class UserService {
     public List<Product> getProductsByGroup(BandDTO referBand){
 
         return productRepository.getProductsByGroup(referBand.getId());
+    }
+
+    public int getBucketPrice(Set<TaskItemDTO> items){
+        int resultPrice = 0;
+        List<Product> productList = productRepository.findAll();
+
+        for(TaskItemDTO it:items){
+            Product localProduct = productList.stream().filter(el->el.getId().equals(it.getProductId()))
+                    .findFirst().orElse(null);
+            if(localProduct != null)
+                resultPrice += localProduct.getPrice() * it.getCount();
+        }
+
+        return resultPrice;
     }
 }

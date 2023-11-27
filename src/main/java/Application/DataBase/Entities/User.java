@@ -46,4 +46,8 @@ public class User {
     @JoinColumn(name="user_id", updatable = true)
     private Credential credential;
 
+    public void addTask(Task refer){
+        tasks.add(refer);
+    }
+
 }
