@@ -1,5 +1,6 @@
 package Application.Services;
 
+import Application.DTO.UserDTO;
 import Application.DataBase.Entities.Auth.BaseRole;
 import Application.DataBase.Entities.Auth.Credential;
 import Application.DataBase.Entities.Auth.Roles;
@@ -38,11 +39,12 @@ public class AdminService {
         taskRepository.deleteById(task_id);
     }
 
-    public void createUser(User user,Roles role)
+    public void createUser(UserDTO userRef, Roles role)
     {
-        userRepository.save(user);
-        Credential newUserCredential = new Credential(true,"newUser","12345",user,
-                Stream.of(new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet()));
+        User newUser = new User(userRef.getFIO());
+        Credential newUserCredential = new Credential(true,userRef.getEmail(),"12345",newUser,
+                Stream.of(new Roles(BaseRole.CUSTOMER),role).collect(Collectors.toSet()));
+        userRepository.save(newUser);
     }
 
     public void changeUserInfo(User user){

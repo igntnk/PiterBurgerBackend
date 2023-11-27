@@ -9,9 +9,9 @@ import lombok.Data;
 public class TaskItemDTO {
     private Long id;
     private int count;
-    private String product;
+    private Long product;
 
     public static TaskItemDTO fromEntity(TaskItem refer){
-        return new TaskItemDTO(refer.getId(), refer.getCount(),refer.getProduct().getName());
+        return new TaskItemDTO(refer.getId(), refer.getCount(),refer.getProduct().getId());
     }
 }
