@@ -49,7 +49,7 @@ public class UserService {
 
     public void createTask(Set<TaskItemDTO> productDTOSet, UserDTO userRef){
         Set<TaskItem> productSet = new HashSet<>();
-        productDTOSet.stream().map(el -> productSet.add(new TaskItem(el.getCount(),productRepository.findById(el.getProduct()).orElse(null))));
+        productDTOSet.stream().map(el -> productSet.add(new TaskItem(el.getCount(),productRepository.findById(el.getProductId()).orElse(null))));
 
         Task createdTask = new Task("",new Date(),BaseStatus.ACTIVE,productSet);
         Optional<User> userToAddTaskOpt = userRepository.findById(userRef.getId());

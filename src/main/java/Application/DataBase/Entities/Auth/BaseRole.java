@@ -1,5 +1,8 @@
 package Application.DataBase.Entities.Auth;
 
+import lombok.Getter;
+
+@Getter
 public enum BaseRole {
     CUSTOMER("ROLE_SUPER_USER", "SUPER_USER"),
     WORKER("ROLE_MANAGER", "MANAGER"),
