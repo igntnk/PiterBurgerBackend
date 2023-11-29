@@ -39,14 +39,14 @@ public class User {
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="user_id", updatable = true)
-    private Set<Task> tasks;
+    private Set<Order> tasks;
 
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="user_id", updatable = true)
     private Credential credential;
 
-    public void addTask(Task refer){
+    public void addTask(Order refer){
         tasks.add(refer);
     }
 

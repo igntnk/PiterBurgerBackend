@@ -3,21 +3,19 @@ package Application.DataBase.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "task")
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task {
+public class Order {
     @Id
     @Column(name = "task_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,11 +46,11 @@ public class Task {
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="task_id", updatable = true)
-    private Set<TaskItem> items;
+    private Set<OrderItem> items;
 
 
-    public Task(String comment, Date creationDate,
-                BaseStatus status, Set<TaskItem> items) {
+    public Order(String comment, Date creationDate,
+                BaseStatus status, Set<OrderItem> items) {
         this.comment = comment;
         this.creationDate = creationDate;
         this.status = status;

@@ -7,8 +7,8 @@ import Application.DataBase.Entities.Auth.Roles;
 import Application.DataBase.Entities.BaseStatus;
 import Application.DataBase.Entities.User;
 import Application.DataBase.Repository.CredentialRepository;
+import Application.DataBase.Repository.OrderRepository;
 import Application.DataBase.Repository.RolesRepository;
-import Application.DataBase.Repository.TaskRepository;
 import Application.DataBase.Repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class AdminService {
 
     @Autowired
-    TaskRepository taskRepository;
+    OrderRepository orderRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -34,11 +34,11 @@ public class AdminService {
     RolesRepository rolesRepository;
 
     public void setStatus(Long task_id,String status){
-        taskRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.valueOf(status)));
+        orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.valueOf(status)));
     }
 
     public void removeOrder(Long task_id){
-        taskRepository.deleteById(task_id);
+        orderRepository.deleteById(task_id);
     }
 
     public void createUser(UserDTO userRef, Roles role)

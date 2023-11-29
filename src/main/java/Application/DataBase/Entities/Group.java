@@ -8,11 +8,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Band")
+@Table(name = "groups")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Band {
+public class Group {
     @Id
     @Column(name = "band_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class Band {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
 
-    public Band(String name) {
+    public Group(String name) {
         this.name = name;
     }
 }

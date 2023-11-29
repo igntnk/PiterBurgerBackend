@@ -1,7 +1,7 @@
 package Application.DTO;
 
 import Application.DataBase.Entities.BaseStatus;
-import Application.DataBase.Entities.Task;
+import Application.DataBase.Entities.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-public class TaskDTO {
+public class OrderDTO {
     private Long id;
     private String comment;
     private Date creationDate;
@@ -18,8 +18,8 @@ public class TaskDTO {
     private Date doneDate;
     private BaseStatus status;
 
-    public static TaskDTO fromEntity(Task refer){
-        return new TaskDTO(refer.getId(), refer.getComment(), refer.getCreationDate(),
+    public static OrderDTO fromEntity(Order refer){
+        return new OrderDTO(refer.getId(), refer.getComment(), refer.getCreationDate(),
                 refer.getOnCookingDate(),refer.getOnServeDate(),refer.getDoneDate(),refer.getStatus());
     }
 }
