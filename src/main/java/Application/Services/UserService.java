@@ -89,4 +89,8 @@ public class UserService {
 
         return resultPrice;
     }
+
+    public Iterable<User> getAllUsers(){
+        return userRepository.findAll();
+    }
 }

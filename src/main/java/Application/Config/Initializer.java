@@ -42,13 +42,13 @@ public class Initializer implements CommandLineRunner {
         User user4 = new User("Shakespeare William");
 
         user1.setCredential(new Credential(true,"ignatik@vk.com","12345", Stream.of(
-                new Roles(BaseRole.SUPER_USER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+                new Roles(BaseRole.SUPER_USER)).collect(Collectors.toSet())));
         user2.setCredential(new Credential(true,"pushok@vk.com","12345",Stream.of(
-                new Roles(BaseRole.MANAGER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+                new Roles(BaseRole.MANAGER)).collect(Collectors.toSet())));
         user3.setCredential(new Credential(true,"tolstik@vk.com","12345",Stream.of(
-                new Roles(BaseRole.WORKER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+                new Roles(BaseRole.WORKER)).collect(Collectors.toSet())));
         user4.setCredential(new Credential(true,"shaker@vk.com","12345",Stream.of(
-                new Roles(BaseRole.CUSTOMER),new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
+                new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
 
         user1.setAdress(Stream.of(new Adress(true,"Lizukova 47"),
                 new Adress(false,"Krestianina 6a")).
@@ -141,20 +141,23 @@ public class Initializer implements CommandLineRunner {
 
         groupRepository.saveAll(Arrays.asList(g1,g2,g3,g4,g5,g6,g7,g8,g9));
 
-        Order t1 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
-                Stream.of(new OrderItem(2,p1),new OrderItem(1,p3),new OrderItem(2,p2)).collect(Collectors.toSet()));
+        Order t1 = new Order("Горячее и холодное раздельно", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new OrderItem(4,p1),new OrderItem(2,p42),new OrderItem(2,p2)).collect(Collectors.toSet()));
         Order t2 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(1,p13),new OrderItem(1,p2)).collect(Collectors.toSet()));
-        Order t3 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
+        Order t3 = new Order("Аккуратно упакуйте", new Date(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(28,p2)).collect(Collectors.toSet()));
-        Order t4 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
+        Order t4 = new Order("Кто ты такой", new Date(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(144,p1),new OrderItem(1,p5)).collect(Collectors.toSet()));
-        Order t5 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
+        Order t5 = new Order("А вы знали что если у вас сопли...", new Date(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(22,p3),new OrderItem(12,p1)).collect(Collectors.toSet()));
+        Order t6 = new Order("Это значит, что домовой", new Date(),BaseStatus.ACTIVE,
+                Stream.of(new OrderItem(22,p3),new OrderItem(12,p1),
+                        new OrderItem(3,p11),new OrderItem(4,p32)).collect(Collectors.toSet()));
 
         user1.setTasks(Stream.of(t1,t2).collect(Collectors.toSet()));
         user2.setTasks(Stream.of(t3).collect(Collectors.toSet()));
-        user3.setTasks(Stream.of(t4).collect(Collectors.toSet()));
+        user3.setTasks(Stream.of(t4,t6).collect(Collectors.toSet()));
         user4.setTasks(Stream.of(t5).collect(Collectors.toSet()));
 
         userRepository.saveAll(Arrays.asList(user1,user2,user3,user4));

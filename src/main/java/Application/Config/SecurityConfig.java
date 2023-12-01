@@ -24,22 +24,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
-                        "select username,password,enabled from users where username=?"
+                        "select email,password,enabled from credential where email=?"
                 )
                 .authoritiesByUsernameQuery(
-                        "select username,role from user_roles where username=?"
+                        "select email,role from credential natural join roles where email=?"
                 );
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -56,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/customer/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/customer/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
                 .antMatchers(HttpMethod.POST, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
                 .antMatchers(HttpMethod.PUT, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
