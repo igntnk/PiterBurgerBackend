@@ -56,7 +56,6 @@ public class AdminService {
 
     public void changeUserRole(Long user_id, Roles role){
         User changeUser = userRepository.findById(user_id).orElse(null);
-        assert changeUser != null;
 
         changeUser.getCredential().setRoles(Stream.of(new Roles(BaseRole.CUSTOMER), role).collect(Collectors.toSet()));
         userRepository.save(changeUser);
