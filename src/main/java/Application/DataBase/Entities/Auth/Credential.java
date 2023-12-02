@@ -46,7 +46,7 @@ public class Credential{
 
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name="cred_id", updatable = true)
     private Set<Roles> roles;
 

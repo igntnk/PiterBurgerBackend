@@ -60,12 +60,12 @@ public class UserService {
         userRepository.save(userToAddTask);
     }
 
-    public Order cancelTask(OrderDTO referTask){
-        Optional<Order> taskToChangeOpt = orderRepository.findById(referTask.getId());
-        if(taskToChangeOpt.isEmpty()){
+    public Order cancelOrder(OrderDTO referTask){
+        Optional<Order> orderToChangeOpt = orderRepository.findById(referTask.getId());
+        if(orderToChangeOpt.isEmpty()){
             throw new NoSuchElementException("Task with " + referTask.getId() + " id not found");
         }
-        Order taskToChange = taskToChangeOpt.get();
+        Order taskToChange = orderToChangeOpt.get();
         taskToChange.setStatus(BaseStatus.CANCELED);
 
         return orderRepository.save(taskToChange);

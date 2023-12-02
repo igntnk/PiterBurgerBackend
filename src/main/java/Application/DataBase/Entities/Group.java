@@ -3,6 +3,8 @@ package Application.DataBase.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,6 +24,7 @@ public class Group {
     private String name;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinTable(
             name = "Band_Product",
             joinColumns =  @JoinColumn(name = "band_id"),

@@ -34,10 +34,11 @@ public class Product {
     private boolean enabled;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "product")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     private List<OrderItem> orderItem;
 
     @ManyToMany(mappedBy = "products")
+    @LazyCollection(LazyCollectionOption.TRUE)
     private Set<Group> groups;
 
     public Product(String name, String description, int price, boolean enabled) {

@@ -11,13 +11,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Adress {
+public class Address {
     @Id
     @Column(name = "adress_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Adress(boolean active, String address) {
+    public Address(boolean active, String address) {
         this.active = active;
         this.address = address;
     }

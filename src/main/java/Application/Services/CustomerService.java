@@ -11,10 +11,4 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
-    @Autowired
-    CredentialRepository credentialRepository;
-
-    public Credential getCredByEmail(String email){
-        return credentialRepository.getCredByEmail(email);
-    }
 }

@@ -17,19 +17,4 @@ import java.util.Objects;
 @RequestMapping("/api/customer")
 public class CustomerController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CustomerService customerService;
-
-    @GetMapping("/all")
-    public UserDTO getAllUsers(){
-        return UserDTO.fromEntity(Objects.requireNonNull(userService.getMe(2L).orElse(null)));
-    }
-
-    @GetMapping("/secret")
-    public ResponseEntity<CredentialDTO> getCreds(@RequestParam("email") String email){
-        return ResponseEntity.ok().body(CredentialDTO.fromEntity(customerService.getCredByEmail(email)));
-    }
 }

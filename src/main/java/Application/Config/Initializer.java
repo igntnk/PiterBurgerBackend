@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,15 +49,15 @@ public class Initializer implements CommandLineRunner {
         user4.setCredential(new Credential(true,"shaker@vk.com","12345",Stream.of(
                 new Roles(BaseRole.CUSTOMER)).collect(Collectors.toSet())));
 
-        user1.setAdress(Stream.of(new Adress(true,"Lizukova 47"),
-                new Adress(false,"Krestianina 6a")).
+        user1.setAdress(Stream.of(new Address(true,"Lizukova 47"),
+                new Address(false,"Krestianina 6a")).
                 collect(Collectors.toSet()));
-        user2.setAdress(Stream.of(new Adress(true,"Koltsovskaya 3")).
+        user2.setAdress(Stream.of(new Address(true,"Koltsovskaya 3")).
                 collect(Collectors.toSet()));
-        user3.setAdress(Stream.of(new Adress(true,"Kutsugina 44"),
-                new Adress(false,"Kirova 129")).
+        user3.setAdress(Stream.of(new Address(true,"Kutsugina 44"),
+                new Address(false,"Kirova 129")).
                 collect(Collectors.toSet()));
-        user4.setAdress(Stream.of(new Adress(true,"Lizukova 46")).
+        user4.setAdress(Stream.of(new Address(true,"Lizukova 46")).
                 collect(Collectors.toSet()));
 
 

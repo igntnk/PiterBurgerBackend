@@ -17,9 +17,4 @@ public class OrderDTO {
     private Date onServeDate;
     private Date doneDate;
     private BaseStatus status;
-
-    public static OrderDTO fromEntity(Order refer){
-        return new OrderDTO(refer.getId(), refer.getComment(), refer.getCreationDate(),
-                refer.getOnCookingDate(),refer.getOnServeDate(),refer.getDoneDate(),refer.getStatus());
-    }
 }

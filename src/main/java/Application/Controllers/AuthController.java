@@ -1,4 +1,4 @@
-package com.vorstu.DeliveryServiceBackend.controllers;
+package Application.Controllers;
 
 import Application.DTO.CredentialDTO;
 import Application.DataBase.Entities.Auth.Credential;
@@ -32,17 +32,6 @@ public class AuthController {
         log.warn("getUserAuth: " + (auth != null ? auth.getName() : "null") );
         return "hello";
     }
-
-//    @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public @ResponseBody Object getAuthUser() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth == null) {
-//            return null;
-//        }
-//        Object principal = auth.getPrincipal();
-//        User user = (principal instanceof User) ? (User) principal : null;
-//        return Objects.nonNull(user) ? this.service.getByLogin(user.getUsername()) : null;
-//    }
 
     @PostMapping(path = "/logout", consumes = "application/json", produces = "applicaton/json")
     @ResponseBody

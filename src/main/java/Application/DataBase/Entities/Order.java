@@ -44,7 +44,7 @@ public class Order {
     private BaseStatus status;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name="task_id", updatable = true)
     private Set<OrderItem> items;
 

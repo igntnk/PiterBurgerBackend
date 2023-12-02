@@ -9,8 +9,4 @@ import lombok.Data;
 public class GroupDTO {
     private Long id;
     private String name;
-
-    public static GroupDTO fromEntity(Group refer){
-        return new GroupDTO(refer.getId(), refer.getName());
-    }
 }
