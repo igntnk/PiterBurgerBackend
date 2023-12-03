@@ -44,6 +44,9 @@ public class Credential{
     @Column(name = "password")
     private String password;
 
+    @OneToOne(mappedBy = "credential")
+    @LazyCollection(LazyCollectionOption.TRUE)
+    private User user;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.TRUE)

@@ -27,10 +27,8 @@ public class AuthController {
 
     @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String login(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        log.warn("getUserAuth: " + (auth != null ? auth.getName() : "null") );
-        return "hello";
+    public Principal login(Principal login){
+        return login;
     }
 
     @PostMapping(path = "/logout", consumes = "application/json", produces = "applicaton/json")

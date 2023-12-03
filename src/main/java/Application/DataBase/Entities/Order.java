@@ -1,5 +1,6 @@
 package Application.DataBase.Entities;
 
+import Application.DTO.OrderItemDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Order {
     @Id
-    @Column(name = "task_id")
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -45,7 +48,7 @@ public class Order {
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.TRUE)
-    @JoinColumn(name="task_id", updatable = true)
+    @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;
 
 

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Group {
     @Id
-    @Column(name = "band_id")
+    @Column(name = "group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -26,8 +26,8 @@ public class Group {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.TRUE)
     @JoinTable(
-            name = "Band_Product",
-            joinColumns =  @JoinColumn(name = "band_id"),
+            name = "group_product",
+            joinColumns =  @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
 

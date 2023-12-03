@@ -6,15 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 public class OrderDTO {
-    private Long id;
     private String comment;
-    private Date creationDate;
-    private Date onCookingDate;
-    private Date onServeDate;
-    private Date doneDate;
-    private BaseStatus status;
+    private List<OrderItemDTO> items;
 }

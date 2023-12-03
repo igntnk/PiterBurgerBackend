@@ -12,6 +12,4 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Long id;
     private String FIO;
-    private String email;
-    private List<AddressDTO> addressList;
 }
