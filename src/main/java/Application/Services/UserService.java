@@ -60,37 +60,5 @@ public class UserService {
         userRepository.save(userToAddTask);
     }
 
-    public Order cancelOrder(OrderDTO referTask){
-        Optional<Order> orderToChangeOpt = orderRepository.findById(referTask.getId());
-        if(orderToChangeOpt.isEmpty()){
-            throw new NoSuchElementException("Task with " + referTask.getId() + " id not found");
-        }
-        Order taskToChange = orderToChangeOpt.get();
-        taskToChange.setStatus(BaseStatus.CANCELED);
 
-        return orderRepository.save(taskToChange);
-    }
-
-    public List<Product> getProductsByGroup(GroupDTO referBand){
-
-        return productRepository.getProductsByGroup(referBand.getId());
-    }
-
-    public int getBucketPrice(Set<OrderItemDTO> items){
-        int resultPrice = 0;
-        List<Product> productList = productRepository.findAll();
-
-        for(OrderItemDTO it:items){
-            Product localProduct = productList.stream().filter(el->el.getId().equals(it.getProductId()))
-                    .findFirst().orElse(null);
-            if(localProduct != null)
-                resultPrice += localProduct.getPrice() * it.getCount();
-        }
-
-        return resultPrice;
-    }
-
-    public Iterable<User> getAllUsers(){
-        return userRepository.findAll();
-    }
 }

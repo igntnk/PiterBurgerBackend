@@ -154,10 +154,10 @@ public class Initializer implements CommandLineRunner {
                 Stream.of(new OrderItem(22,p3),new OrderItem(12,p1),
                         new OrderItem(3,p11),new OrderItem(4,p32)).collect(Collectors.toSet()));
 
-        user1.setTasks(Stream.of(t1,t2).collect(Collectors.toSet()));
-        user2.setTasks(Stream.of(t3).collect(Collectors.toSet()));
-        user3.setTasks(Stream.of(t4,t6).collect(Collectors.toSet()));
-        user4.setTasks(Stream.of(t5).collect(Collectors.toSet()));
+        user1.setOrders(Stream.of(t1,t2).collect(Collectors.toSet()));
+        user2.setOrders(Stream.of(t3).collect(Collectors.toSet()));
+        user3.setOrders(Stream.of(t4,t6).collect(Collectors.toSet()));
+        user4.setOrders(Stream.of(t5).collect(Collectors.toSet()));
 
         userRepository.saveAll(Arrays.asList(user1,user2,user3,user4));
     }

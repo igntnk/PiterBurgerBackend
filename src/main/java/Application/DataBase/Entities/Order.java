@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Order {
     @Id
-    @Column(name = "task_id")
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -45,8 +45,12 @@ public class Order {
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.TRUE)
-    @JoinColumn(name="task_id", updatable = true)
+    @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",updatable = true)
+    private User user;
 
 
     public Order(String comment, Date creationDate,

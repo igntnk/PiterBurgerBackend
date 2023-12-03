@@ -41,14 +41,7 @@ public class AdminService {
         orderRepository.deleteById(task_id);
     }
 
-    public void createUser(UserDTO userRef, Roles role)
-    {
-        User newUser = new User(userRef.getFIO());
-        Credential newUserCredential = new Credential(true,userRef.getEmail(),"12345",
-                Stream.of(new Roles(BaseRole.CUSTOMER),role).collect(Collectors.toSet()));
-        newUser.setCredential(newUserCredential);
-        userRepository.save(newUser);
-    }
+
 
     public void changeUserInfo(User user){
         userRepository.save(user);

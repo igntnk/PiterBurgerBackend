@@ -40,8 +40,7 @@ public class User {
     private Set<Order> orders;
 
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.TRUE)
-    @JoinColumn(name="user_id", updatable = true)
+    @JoinColumn(name="cred_id", referencedColumnName = "cred_id",updatable = true)
     private Credential credential;
 
     public void addTask(Order refer){
