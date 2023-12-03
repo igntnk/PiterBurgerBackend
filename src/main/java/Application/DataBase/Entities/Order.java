@@ -51,6 +51,10 @@ public class Order {
     @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",updatable = true)
+    private User user;
+
 
     public Order(String comment, Date creationDate,
                 BaseStatus status, Set<OrderItem> items) {

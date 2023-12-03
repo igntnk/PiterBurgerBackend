@@ -41,10 +41,7 @@ public class AdminService {
         orderRepository.deleteById(task_id);
     }
 
-    public void createUser(UserDTO userRef, Roles role)
-    {
 
-    }
 
     public void changeUserInfo(User user){
         userRepository.save(user);

@@ -4,19 +4,21 @@ import Application.DTO.OrderDTO;
 import Application.DTO.OrderItemDTO;
 import Application.DTO.ProductDTO;
 import Application.DataBase.Entities.*;
-import Application.DataBase.Repository.GroupRepository;
-import Application.DataBase.Repository.OrderRepository;
-import Application.DataBase.Repository.ProductRepository;
-import Application.DataBase.Repository.UserRepository;
+import Application.DataBase.Entities.Auth.Credential;
+import Application.DataBase.Repository.*;
 import Application.Mappers.OrderMapper;
+import Application.Mappers.ProductListMapper;
 import Application.Mappers.ProductMapper;
-import Application.Mappers.Resolver.ProductResolver;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,46 +26,60 @@ import java.util.stream.Stream;
 public class CustomerService {
 
     @Autowired
-    private UserRepository userRepository;
+    GroupRepository groupRepository;
 
     @Autowired
-    private GroupRepository groupRepository;
+    ProductRepository productRepository;
 
     @Autowired
-    private ProductRepository productRepository;
+    ProductListMapper productListMapper;
 
     @Autowired
-    private ProductMapper productMapper;
+    UserRepository userRepository;
 
     @Autowired
-    private ProductResolver productResolver;
+    OrderRepository orderRepository;
 
     @Autowired
-    private OrderRepository orderRepository;
+    OrderMapper orderMapper;
 
-    @Autowired
-    private OrderMapper orderMapper;
-
-
-    public List<String> getGroupNames(){
-        return groupRepository.findAll().stream().map(Group::getName).toList();
+    public List<String> getAllGroups(){
+        return groupRepository.findAll().stream().map(Group::getName).collect(Collectors.toList());
     }
 
-    public List<ProductDTO> getProductsByGroup(Long id){
-        return productRepository.getProductsByGroup(id).stream().map(product ->
-                productMapper.toDTO(product)
-        ).toList();
+    public List<ProductDTO> getProductsByGroups(Long id){
+        return productListMapper.toDTOList(productRepository.getProductsByGroup(id));
     }
-    public OrderDTO createOrder(OrderDTO order, Long id){
-        Order newOrder = new Order( order.getComment(), new Date(),BaseStatus.ACTIVE,
-                order.getItems().stream().map(item ->
-                        new OrderItem(item.getCount(),productResolver.resolve(item.getProductId(),Product.class))
-                ).collect(Collectors.toSet()));
 
-        User user = userRepository.findById(id).orElseThrow();
-        user.addOrder(newOrder);
-        userRepository.save(user);
-
-        return orderMapper.toDTO(newOrder);
+    public int getPrice(List<OrderItemDTO> items){
+        int resultPrice = 0;
+        List<Product> products = productRepository.findAll();
+        for(OrderItemDTO it:items){
+            resultPrice += products.get(Math.toIntExact(it.getProductId())).
+                    getPrice()*it.getCount();
+        }
+        return resultPrice;
     }
+
+    public String getMyName(String email){
+        return userRepository.getUserByEmail(email).getFIO();
+    }
+
+    public OrderDTO createOrder(OrderDTO orderRef, String email){
+        List<Product> allProducts = productRepository.findAll();
+        Order order = new Order(
+                orderRef.getComment(),
+                new Date(),
+                BaseStatus.ACTIVE,
+                orderRef.getItems().stream().map(el->
+                        new OrderItem(
+                                el.getCount()
+                                ,allProducts.get(Math.toIntExact(el.getProductId()))
+                        ))
+                        .collect(Collectors.toSet())
+                );
+        order.setUser(userRepository.getUserByEmail(email));
+        return orderMapper.toDTO(orderRepository.save(order));
+    }
+
 }

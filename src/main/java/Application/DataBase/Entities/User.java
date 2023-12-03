@@ -40,8 +40,8 @@ public class User {
     private Set<Order> orders;
 
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @JoinColumn(name="cred_id", updatable = true)
-    private Credential credential = null;
+    @JoinColumn(name="cred_id", referencedColumnName = "cred_id",updatable = true)
+    private Credential credential;
 
     public void addOrder(Order refer){
         orders.add(refer);

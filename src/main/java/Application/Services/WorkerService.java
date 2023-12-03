@@ -14,11 +14,11 @@ public class WorkerService {
     @Autowired
     OrderRepository orderRepository;
 
-    public void setStatusCooking(Long task_id){orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.COOKING)); }
+    public void setStatusCooking(Long order_id){orderRepository.findById(order_id).ifPresent(task -> task.setStatus(BaseStatus.COOKING)); }
 
-    public void setStatusCooked(Long task_id){orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.COOKED));}
+    public void setStatusCooked(Long order_id){orderRepository.findById(order_id).ifPresent(task -> task.setStatus(BaseStatus.COOKED));}
 
-    public void setStatusServing(Long task_id){orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.SERVING));}
+    public void setStatusServing(Long order_id){orderRepository.findById(order_id).ifPresent(task -> task.setStatus(BaseStatus.SERVING));}
 
-    public void setStatusServed(Long task_id){orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.SERVED));}
+    public void setStatusServed(Long order_id){orderRepository.findById(order_id).ifPresent(task -> task.setStatus(BaseStatus.SERVED));}
 }
