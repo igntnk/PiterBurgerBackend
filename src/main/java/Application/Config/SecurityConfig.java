@@ -73,7 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         BaseRole.WORKER.getRole(),
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/order/freeze","/api/order/active").hasAnyAuthority(
+                .antMatchers(HttpMethod.PUT,
+                        "/api/order/freeze",
+                        "/api/order/active",
+                        "api/order/delete").hasAnyAuthority(
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
                 .anyRequest().authenticated()
