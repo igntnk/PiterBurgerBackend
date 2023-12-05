@@ -12,5 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDTO {
     private String comment;
+    private String status;
     private List<OrderItemDTO> items;
 }

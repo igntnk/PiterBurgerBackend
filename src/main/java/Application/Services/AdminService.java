@@ -1,5 +1,6 @@
 package Application.Services;
 
+import Application.DTO.CreateUserDTO;
 import Application.DTO.UserDTO;
 import Application.DataBase.Entities.Auth.BaseRole;
 import Application.DataBase.Entities.Auth.Credential;
@@ -10,10 +11,13 @@ import Application.DataBase.Repository.CredentialRepository;
 import Application.DataBase.Repository.OrderRepository;
 import Application.DataBase.Repository.RolesRepository;
 import Application.DataBase.Repository.UserRepository;
+import Application.Mappers.UserListMapper;
+import Application.Mappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,39 +26,27 @@ import java.util.stream.Stream;
 public class AdminService {
 
     @Autowired
-    OrderRepository orderRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired
-    CredentialRepository credentialRepository;
+    UserMapper userMapper;
 
     @Autowired
-    RolesRepository rolesRepository;
+    UserListMapper userListMapper;
 
-    public void setStatus(Long task_id,String status){
-        orderRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.valueOf(status)));
+    public UserDTO createUser(CreateUserDTO dto){
+        User user = new User(dto.getFIO());
+        Credential credential = new Credential(true,dto.getEmail(), dto.getPassword(),
+                Stream.of(new Roles(BaseRole.valueOf(dto.getRole()))).collect(Collectors.toSet()));
+        user.setCredential(credential);
+        return userMapper.toDTO(userRepository.save(user));
     }
 
-    public void removeOrder(Long task_id){
-        orderRepository.deleteById(task_id);
+    public List<UserDTO> getAllWorkers(){
+        return userListMapper.toDTOList(userRepository.findAll());
     }
 
-
-
-    public void changeUserInfo(User user){
-        userRepository.save(user);
-    }
-
-    public void changeUserRole(Long user_id, Roles role){
-        User changeUser = userRepository.findById(user_id).orElse(null);
-
-        changeUser.getCredential().setRoles(Stream.of(new Roles(BaseRole.CUSTOMER), role).collect(Collectors.toSet()));
-        userRepository.save(changeUser);
-    }
-
-    public void removeUser(Long user_id){
-        userRepository.deleteById(user_id);
+    public void deleteWorker(Long id){
+        userRepository.deleteById(id);
     }
 }
