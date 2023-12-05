@@ -3,7 +3,6 @@ package Application.DataBase.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -35,11 +34,12 @@ public class Product {
     private boolean enabled;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "product")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<TaskItem> orderItem;
+    @LazyCollection(LazyCollectionOption.TRUE)
+    private List<OrderItem> orderItem;
 
     @ManyToMany(mappedBy = "products")
-    private Set<Band> groups;
+    @LazyCollection(LazyCollectionOption.TRUE)
+    private Set<Group> groups;
 
     public Product(String name, String description, int price, boolean enabled) {
         this.name = name;

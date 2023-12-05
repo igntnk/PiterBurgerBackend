@@ -1,25 +1,26 @@
 package Application.DataBase.Entities;
 
+import Application.DTO.OrderItemDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "task")
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task {
+public class Order {
     @Id
-    @Column(name = "task_id")
+    @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -46,13 +47,17 @@ public class Task {
     private BaseStatus status;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name="task_id", updatable = true)
-    private Set<TaskItem> items;
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @JoinColumn(name="order_id", updatable = true)
+    private Set<OrderItem> items;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",updatable = true)
+    private User user;
 
 
-    public Task(String comment, Date creationDate,
-                BaseStatus status, Set<TaskItem> items) {
+    public Order(String comment, Date creationDate,
+                BaseStatus status, Set<OrderItem> items) {
         this.comment = comment;
         this.creationDate = creationDate;
         this.status = status;

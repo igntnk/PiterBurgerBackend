@@ -1,19 +1,28 @@
 package Application.Services;
 
+import Application.DTO.OrderDTO;
 import Application.DataBase.Entities.BaseStatus;
-import Application.DataBase.Repository.TaskRepository;
+import Application.DataBase.Repository.OrderRepository;
+import Application.Mappers.OrderListMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ManagerService {
 
-    TaskRepository taskRepository;
+    @Autowired
+    OrderRepository orderRepository;
 
-    public void setStatus(Long task_id,String status){
-        taskRepository.findById(task_id).ifPresent(task -> task.setStatus(BaseStatus.valueOf(status)));
+    @Autowired
+    OrderListMapper orderListMapper;
+
+    public List<OrderDTO> getManagerOrders(){
+        return orderListMapper.toDTOList(orderRepository.getManagerOrders());
     }
 
-    public void removeOrder(Long task_id){
-        taskRepository.deleteById(task_id);
+    public List<OrderDTO> getUndoneOrders(){
+        return orderListMapper.toDTOList(orderRepository.getUndoneOrders());
     }
 }

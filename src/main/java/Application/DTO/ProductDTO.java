@@ -12,8 +12,4 @@ public class ProductDTO {
     private String description;
     private int price;
     private boolean enabled;
-
-    public static ProductDTO fromEntity(Product refer){
-        return new ProductDTO(refer.getId(), refer.getName(), refer.getDescription(), refer.getPrice(), refer.isEnabled());
-    }
 }

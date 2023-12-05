@@ -1,13 +1,12 @@
 package Application.DTO;
 
+import Application.DataBase.Entities.Group;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AddressDTO {
+public class GroupDTO {
     private Long id;
-    private boolean active;
-    private String address;
-
+    private String name;
 }

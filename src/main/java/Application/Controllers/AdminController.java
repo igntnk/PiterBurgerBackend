@@ -1,15 +1,41 @@
 package Application.Controllers;
 
+import Application.Controllers.ControllerAdvice.Response;
+import Application.DTO.CreateUserDTO;
+import Application.DTO.UserDTO;
 import Application.DataBase.Entities.User;
 import Application.DataBase.Repository.UserRepository;
+import Application.Services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("api/admin")
 public class AdminController {
 
+    @Autowired
+    AdminService adminService;
+
+    @PostMapping(path = "create")
+    public UserDTO createUser(@RequestBody CreateUserDTO dto){
+        return adminService.createUser(dto);
+    }
+
+    @DeleteMapping(path = "delete")
+    public ResponseEntity<Response> deleteWorker(@RequestParam Long id){
+        adminService.deleteWorker(id);
+        Response response = new Response("User with id " + id + " deleted" , null, new Date());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "workers")
+    public List<UserDTO> getAllWorkers(){
+        return adminService.getAllWorkers();
+    }
 
 }

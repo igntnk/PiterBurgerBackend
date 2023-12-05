@@ -3,18 +3,20 @@ package Application.DataBase.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Band")
+@Table(name = "groups")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Band {
+public class Group {
     @Id
-    @Column(name = "band_id")
+    @Column(name = "group_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -22,13 +24,14 @@ public class Band {
     private String name;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinTable(
-            name = "Band_Product",
-            joinColumns =  @JoinColumn(name = "band_id"),
+            name = "group_product",
+            joinColumns =  @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
 
-    public Band(String name) {
+    public Group(String name) {
         this.name = name;
     }
 }

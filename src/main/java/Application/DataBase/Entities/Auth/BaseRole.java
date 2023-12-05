@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum BaseRole {
-    CUSTOMER("ROLE_SUPER_USER", "SUPER_USER"),
-    WORKER("ROLE_MANAGER", "MANAGER"),
-    MANAGER("ROLE_WORKER", "WORKER"),
-    SUPER_USER("ROLE_CUSTOMER", "CUSTOMER");
+    CUSTOMER("ROLE_CUSTOMER", "CUSTOMER"),
+    WORKER("ROLE_WORKER", "WORKER"),
+    MANAGER("ROLE_MANAGER", "MANAGER"),
+    SUPER_USER("ROLE_SUPER_USER", "SUPER_USER");
 
     private final String value;
     private final String role;

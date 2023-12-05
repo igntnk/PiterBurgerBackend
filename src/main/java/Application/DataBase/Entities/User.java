@@ -4,12 +4,10 @@ import Application.DataBase.Entities.Auth.Credential;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,26 +26,25 @@ public class User {
     private String FIO;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name="user_id", updatable = true)
-    private Set<Adress> adress;
+    private Set<Address> adress;
 
     public User(String FIO) {
         this.FIO = FIO;
     }
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name="user_id", updatable = true)
-    private Set<Task> tasks;
+    private Set<Order> orders;
 
     @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name="user_id", updatable = true)
+    @JoinColumn(name="cred_id", referencedColumnName = "cred_id",updatable = true)
     private Credential credential;
 
-    public void addTask(Task refer){
-        tasks.add(refer);
+    public void addOrder(Order refer){
+        orders.add(refer);
     }
 
 }
