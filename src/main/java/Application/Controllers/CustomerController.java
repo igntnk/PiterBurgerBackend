@@ -24,7 +24,6 @@ public class CustomerController {
     CustomerService customerService;
 
 
-
     @GetMapping(path= "groups",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getAllGroups(){
         return customerService.getAllGroups();
@@ -45,9 +44,5 @@ public class CustomerController {
         return customerService.getMyName(principal.getName());
     }
 
-    @PostMapping(path = "order", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderDTO createOrder(@RequestBody OrderDTO order,Principal principal){
-        return customerService.createOrder(order,principal.getName());
-    }
 
 }

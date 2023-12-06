@@ -65,21 +65,6 @@ public class CustomerService {
         return userRepository.getUserByEmail(email).getFIO();
     }
 
-    public OrderDTO createOrder(OrderDTO orderRef, String email){
-        List<Product> allProducts = productRepository.findAll();
-        Order order = new Order(
-                orderRef.getComment(),
-                new Date(),
-                BaseStatus.ACTIVE,
-                orderRef.getItems().stream().map(el->
-                        new OrderItem(
-                                el.getCount()
-                                ,allProducts.get(Math.toIntExact(el.getProductId()))
-                        ))
-                        .collect(Collectors.toSet())
-                );
-        order.setUser(userRepository.getUserByEmail(email));
-        return orderMapper.toDTO(orderRepository.save(order));
-    }
+
 
 }

@@ -15,6 +15,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
+import java.net.http.WebSocket;
 
 @Configuration
 @EnableWebSecurity
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 httpBasic()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/ws").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/customer/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/customer/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
