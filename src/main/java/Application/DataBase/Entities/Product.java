@@ -33,6 +33,9 @@ public class Product {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name = "photo")
+    private String photo;
+
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "product")
     @LazyCollection(LazyCollectionOption.TRUE)
     private List<OrderItem> orderItem;
@@ -41,9 +44,10 @@ public class Product {
     @LazyCollection(LazyCollectionOption.TRUE)
     private Set<Group> groups;
 
-    public Product(String name, String description, int price, boolean enabled) {
+    public Product(String name, String description, int price, boolean enabled , String photo) {
         this.name = name;
         this.description = description;
+        this.photo = photo;
         this.price = price;
         this.enabled = enabled;
     }

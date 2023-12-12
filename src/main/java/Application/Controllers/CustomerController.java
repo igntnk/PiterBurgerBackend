@@ -25,7 +25,7 @@ public class CustomerController {
 
 
     @GetMapping(path= "groups",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getAllGroups(){
+    public List<GroupDTO> getAllGroups(){
         return customerService.getAllGroups();
     }
 

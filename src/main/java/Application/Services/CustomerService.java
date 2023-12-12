@@ -1,14 +1,13 @@
 package Application.Services;
 
+import Application.DTO.GroupDTO;
 import Application.DTO.OrderDTO;
 import Application.DTO.OrderItemDTO;
 import Application.DTO.ProductDTO;
 import Application.DataBase.Entities.*;
 import Application.DataBase.Entities.Auth.Credential;
 import Application.DataBase.Repository.*;
-import Application.Mappers.OrderMapper;
-import Application.Mappers.ProductListMapper;
-import Application.Mappers.ProductMapper;
+import Application.Mappers.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,9 @@ public class CustomerService {
     GroupRepository groupRepository;
 
     @Autowired
+    GroupListMapper groupListMapper;
+
+    @Autowired
     ProductRepository productRepository;
 
     @Autowired
@@ -43,8 +45,8 @@ public class CustomerService {
     @Autowired
     OrderMapper orderMapper;
 
-    public List<String> getAllGroups(){
-        return groupRepository.findAll().stream().map(Group::getName).collect(Collectors.toList());
+    public List<GroupDTO> getAllGroups(){
+        return groupListMapper.toDTOlist(groupRepository.findAll());
     }
 
     public List<ProductDTO> getProductsByGroups(Long id){
