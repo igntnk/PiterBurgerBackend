@@ -83,7 +83,7 @@ public class OrderService {
                 orderRef.getItems().stream().map(el->
                                 new OrderItem(
                                         el.getCount()
-                                        ,allProducts.get(Math.toIntExact(el.getProductId()))
+                                        ,allProducts.get(Math.toIntExact(el.getProduct().getId())-1)
                                 ))
                         .collect(Collectors.toSet())
         );

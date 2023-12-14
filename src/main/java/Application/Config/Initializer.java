@@ -35,10 +35,10 @@ public class Initializer implements CommandLineRunner {
     OrderRepository orderRepository;
     @Override
     public void run(String... args) throws Exception {
-        User user1 = new User("Ignatenko Ilya Dmitrievich");
-        User user2 = new User("Pushkin Alexandr Sergeevich");
-        User user3 = new User("Tolstoy Lev Nikolaevich");
-        User user4 = new User("Shakespeare William");
+        User user1 = new User("Илья");
+        User user2 = new User("Саша");
+        User user3 = new User("Лева");
+        User user4 = new User("Витек");
 
         user1.setCredential(new Credential(true,"ignatik@vk.com","12345", Stream.of(
                 new Roles(BaseRole.SUPER_USER)).collect(Collectors.toSet())));
@@ -127,9 +127,9 @@ public class Initializer implements CommandLineRunner {
         Group g5 = new Group("Снэки");
         g5.setProducts(Stream.of(p23,p24,p25,p26,p27,p28,p29).collect(Collectors.toSet()));
         Group g6 = new Group("Курица");
-        g6.setProducts(Stream.of(p2,p6,p7,p8,p9).collect(Collectors.toSet()));
+        g6.setProducts(Stream.of(p2,p6,p7,p8).collect(Collectors.toSet()));
         Group g7 = new Group("Говядина");
-        g7.setProducts(Stream.of(p1,p3,p4,p5).collect(Collectors.toSet()));
+        g7.setProducts(Stream.of(p1,p3,p4,p5,p9,p10).collect(Collectors.toSet()));
         Group g8 = new Group("Сезонные новинки");
         g8.setProducts(Stream.of(p10,p28,p31,p21).collect(Collectors.toSet()));
         Group g9 = new Group("Все продукты");

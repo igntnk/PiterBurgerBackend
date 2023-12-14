@@ -8,10 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
-    @Query(value = "SELECT * FROM orders WHERE user_id LIKE :id " +
-            "AND WHERE creation_date > (CURRENT_TIMESTAMP - INTERVAL :days DAY)",
+    @Query(value = "SELECT order_id,comment,creation_date,done_date,on_cook_date," +
+            "on_serve_date,status,user_id FROM users " +
+            "NATURAL JOIN credential NATURAL JOIN orders " +
+            "WHERE email LIKE :email AND creation_date > (NOW() - INTERVAL '7' DAY);",
     nativeQuery = true)
-    public List<Order> getOrdersByDays(Long id, int days);
+    public List<Order> getHistory(String email);
+
+    @Query(value = "SELECT order_id,comment,creation_date,done_date,on_cook_date," +
+            "on_serve_date,status,user_id FROM users " +
+            "NATURAL JOIN credential NATURAL JOIN orders " +
+            "WHERE email LIKE :email AND status LIKE 'ACTIVE'",
+    nativeQuery = true)
+    public List<Order> getActiveOrders(String email);
 
     @Query(value = "SELECT * FROM orders WHERE status LIKE 'ACTIVE' or status LIKE 'COOKING'",
     nativeQuery = true)

@@ -9,5 +9,5 @@ import org.mapstruct.Mapper;
 @AllArgsConstructor
 public class OrderItemDTO {
     private int count;
-    private Long productId;
+    private ProductDTO product;
 }

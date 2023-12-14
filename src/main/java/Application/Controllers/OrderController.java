@@ -1,9 +1,8 @@
 package Application.Controllers;
 
-import Application.Controllers.ControllerAdvice.Response;
+import Application.Controllers.ControllerAdvice.ExceptionResponse;
 import Application.DTO.OrderDTO;
 import Application.Services.OrderService;
-import Application.Services.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/order")
@@ -53,9 +51,9 @@ public class OrderController {
     }
 
     @DeleteMapping(path = "delete")
-    public ResponseEntity<Response> deleteOrder(Long id) {
+    public ResponseEntity<ExceptionResponse> deleteOrder(Long id) {
         orderService.deleteOrder(id);
-        Response response = new Response(
+        ExceptionResponse response = new ExceptionResponse(
                 "Order with id: " + id + " succesifully deleted",
                 null,
                 new Date());

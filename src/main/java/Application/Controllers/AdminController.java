@@ -1,10 +1,8 @@
 package Application.Controllers;
 
-import Application.Controllers.ControllerAdvice.Response;
+import Application.Controllers.ControllerAdvice.ExceptionResponse;
 import Application.DTO.CreateUserDTO;
 import Application.DTO.UserDTO;
-import Application.DataBase.Entities.User;
-import Application.DataBase.Repository.UserRepository;
 import Application.Services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +25,9 @@ public class AdminController {
     }
 
     @DeleteMapping(path = "delete")
-    public ResponseEntity<Response> deleteWorker(@RequestParam Long id){
+    public ResponseEntity<ExceptionResponse> deleteWorker(@RequestParam Long id){
         adminService.deleteWorker(id);
-        Response response = new Response("User with id " + id + " deleted" , null, new Date());
+        ExceptionResponse response = new ExceptionResponse("User with id " + id + " deleted" , null, new Date());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
