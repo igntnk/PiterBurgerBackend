@@ -25,7 +25,7 @@ import java.util.Objects;
 @Slf4j
 public class AuthController {
 
-    @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Principal login(Principal login){
         return login;

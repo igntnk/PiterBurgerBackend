@@ -1,5 +1,6 @@
 package Application.Controllers;
 
+import Application.Controllers.ControllerAdvice.Response;
 import Application.DTO.*;
 import Application.DataBase.Entities.Auth.Credential;
 import Application.DataBase.Entities.OrderItem;
@@ -7,6 +8,7 @@ import Application.DataBase.Entities.Product;
 import Application.DataBase.Entities.User;
 import Application.DataBase.Repository.UserRepository;
 import Application.Services.CustomerService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,8 @@ public class CustomerController {
     CustomerService customerService;
 
 
-
     @GetMapping(path= "groups",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<String> getAllGroups(){
+    public List<GroupDTO> getAllGroups(){
         return customerService.getAllGroups();
     }
 
@@ -41,13 +42,26 @@ public class CustomerController {
     }
 
     @GetMapping(path = "name", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getName(Principal principal){
+    @ResponseBody
+    public Response getName(Principal principal){
         return customerService.getMyName(principal.getName());
     }
 
-    @PostMapping(path = "order", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderDTO createOrder(@RequestBody OrderDTO order,Principal principal){
-        return customerService.createOrder(order,principal.getName());
+    @PostMapping(path = "name" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response setName(
+            Principal principal,
+            @RequestBody String name){
+        return customerService.setName(principal.getName(), name);
+    }
+
+    @GetMapping(path = "history",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderDTO> getHistory(Principal principal){
+        return customerService.getHistoryOrders(principal.getName());
+    }
+
+    @GetMapping(path = "active", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderDTO> getActive(Principal principal) {
+        return customerService.getActiveOrders(principal.getName());
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.sql.DataSource;
+import java.net.http.WebSocket;
 
 @Configuration
 @EnableWebSecurity
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 httpBasic()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/ws").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/customer/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/customer/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
@@ -69,11 +71,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/worker/**").hasAnyAuthority(BaseRole.WORKER.getRole())
                 .antMatchers(HttpMethod.POST, "/api/customer/create").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
                 .antMatchers(HttpMethod.GET, "/api/customer/name").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/order/**").hasAnyAuthority(
+                .antMatchers(HttpMethod.POST, "/api/customer/name").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
+                .antMatchers(HttpMethod.POST, "/api/order/**").hasAnyAuthority(
                         BaseRole.WORKER.getRole(),
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/order/freeze","/api/order/active").hasAnyAuthority(
+                .antMatchers(HttpMethod.PUT,
+                        "/api/order/freeze",
+                        "/api/order/active",
+                        "api/order/delete").hasAnyAuthority(
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
                 .anyRequest().authenticated()

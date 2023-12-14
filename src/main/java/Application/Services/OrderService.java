@@ -3,7 +3,11 @@ package Application.Services;
 import Application.DTO.OrderDTO;
 import Application.DataBase.Entities.Auth.Roles;
 import Application.DataBase.Entities.Order;
+import Application.DataBase.Entities.OrderItem;
+import Application.DataBase.Entities.Product;
 import Application.DataBase.Repository.OrderRepository;
+import Application.DataBase.Repository.ProductRepository;
+import Application.DataBase.Repository.UserRepository;
 import Application.Mappers.OrderListMapper;
 import Application.Mappers.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import Application.DataBase.Entities.BaseStatus;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -21,6 +27,12 @@ public class OrderService {
 
     @Autowired
     OrderMapper orderMapper;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public OrderDTO setStatusCooking(Long order_id){
         Order order = orderRepository.findById(order_id).orElseThrow();
@@ -60,6 +72,23 @@ public class OrderService {
 
     public void deleteOrder(Long id){
         orderRepository.deleteById(id);
+    }
+
+    public OrderDTO createOrder(OrderDTO orderRef, String email){
+        List<Product> allProducts = productRepository.findAll();
+        Order order = new Order(
+                orderRef.getComment(),
+                new Date(),
+                BaseStatus.ACTIVE,
+                orderRef.getItems().stream().map(el->
+                                new OrderItem(
+                                        el.getCount()
+                                        ,allProducts.get(Math.toIntExact(el.getProduct().getId())-1)
+                                ))
+                        .collect(Collectors.toSet())
+        );
+        order.setUser(userRepository.getUserByEmail(email));
+        return orderMapper.toDTO(orderRepository.save(order));
     }
 
 }
