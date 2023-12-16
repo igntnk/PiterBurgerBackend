@@ -9,6 +9,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -28,8 +29,8 @@ public class Order {
     private String comment;
 
     @Column(name = "creation_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private OffsetDateTime creationDate;
 
     @Column(name = "on_cook_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,7 +57,7 @@ public class Order {
     private User user;
 
 
-    public Order(String comment, Date creationDate,
+    public Order(String comment, OffsetDateTime creationDate,
                 BaseStatus status, Set<OrderItem> items) {
         this.comment = comment;
         this.creationDate = creationDate;

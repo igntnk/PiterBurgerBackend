@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -140,17 +141,17 @@ public class Initializer implements CommandLineRunner {
 
         groupRepository.saveAll(Arrays.asList(g1,g2,g3,g4,g5,g6,g7,g8,g9));
 
-        Order t1 = new Order("Горячее и холодное раздельно", new Date(),BaseStatus.ACTIVE,
+        Order t1 = new Order("Горячее и холодное раздельно", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(4,p1),new OrderItem(2,p42),new OrderItem(2,p2)).collect(Collectors.toSet()));
-        Order t2 = new Order("Удачи", new Date(),BaseStatus.ACTIVE,
+        Order t2 = new Order("Удачи", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(1,p13),new OrderItem(1,p2)).collect(Collectors.toSet()));
-        Order t3 = new Order("Аккуратно упакуйте", new Date(),BaseStatus.ACTIVE,
+        Order t3 = new Order("Аккуратно упакуйте", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(28,p2)).collect(Collectors.toSet()));
-        Order t4 = new Order("Кто ты такой", new Date(),BaseStatus.ACTIVE,
+        Order t4 = new Order("Кто ты такой", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(144,p1),new OrderItem(1,p5)).collect(Collectors.toSet()));
-        Order t5 = new Order("А вы знали что если у вас сопли...", new Date(),BaseStatus.ACTIVE,
+        Order t5 = new Order("А вы знали что если у вас сопли...", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(22,p3),new OrderItem(12,p1)).collect(Collectors.toSet()));
-        Order t6 = new Order("Это значит, что домовой", new Date(),BaseStatus.ACTIVE,
+        Order t6 = new Order("Это значит, что домовой", OffsetDateTime.now(),BaseStatus.ACTIVE,
                 Stream.of(new OrderItem(22,p3),new OrderItem(12,p1),
                         new OrderItem(3,p11),new OrderItem(4,p32)).collect(Collectors.toSet()));
 

@@ -18,6 +18,7 @@ import Application.DataBase.Entities.BaseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,17 +94,23 @@ public class OrderService {
 
     public OrderDTO createOrder(OrderDTO orderRef, String email){
         List<Product> allProducts = productRepository.findAll();
-        Order order = new Order(
-                orderRef.getComment(),
-                new Date(),
-                BaseStatus.ACTIVE,
-                orderRef.getItems().stream().map(el->
-                                new OrderItem(
-                                        el.getCount()
-                                        ,allProducts.get(Math.toIntExact(el.getProduct().getId())-1)
-                                ))
-                        .collect(Collectors.toSet())
-        );
+
+        //todo try mapstruct
+        Order order = orderMapper.toEntity(orderRef);
+
+//        Order order = new Order(
+//                orderRef.getComment(),
+//                OffsetDateTime.now(),
+//                BaseStatus.ACTIVE,
+//                orderRef.getItems().stream().map(el->
+//                                new OrderItem(
+//                                        el.getCount()
+//                                        ,
+//                                        //todo !
+//                                        allProducts.get(Math.toIntExact(el.getProduct().getId())-1)
+//                                ))
+//                        .collect(Collectors.toSet())
+//        );
         order.setUser(userRepository.getUserByEmail(email));
         return orderMapper.toDTO(orderRepository.save(order));
     }
