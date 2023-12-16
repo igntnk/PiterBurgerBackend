@@ -10,10 +10,13 @@ import Application.DataBase.Repository.ProductRepository;
 import Application.DataBase.Repository.UserRepository;
 import Application.Mappers.OrderListMapper;
 import Application.Mappers.OrderMapper;
+import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Application.DataBase.Entities.BaseStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.Date;
 import java.util.List;
@@ -29,44 +32,58 @@ public class OrderService {
     OrderMapper orderMapper;
 
     @Autowired
+    OrderListMapper orderListMapper;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
     ProductRepository productRepository;
 
-    public OrderDTO setStatusCooking(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+
+
+    public OrderDTO setStatusCooking(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.COOKING);
+        order.setOnCookingDate(new Date());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setStatusCooked(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+    public OrderDTO setStatusCooked(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.COOKED);
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setStatusServing(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+    public OrderDTO setStatusServing(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.SERVING);
+        order.setOnServeDate(new Date());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setStatusServed(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+    public OrderDTO setStatusServed(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.SERVED);
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setStatusFreeze(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+    public OrderDTO setStatusFreeze(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.FREEZE);
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setStatusActive(Long order_id){
-        Order order = orderRepository.findById(order_id).orElseThrow();
+    public OrderDTO setStatusActive(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.ACTIVE);
+        return orderMapper.toDTO(orderRepository.save(order));
+    }
+
+    public OrderDTO setDoneStatus(Long id){
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setStatus(BaseStatus.DONE);
+        order.setDoneDate(new Date());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -89,6 +106,10 @@ public class OrderService {
         );
         order.setUser(userRepository.getUserByEmail(email));
         return orderMapper.toDTO(orderRepository.save(order));
+    }
+
+    public List<OrderDTO> getActiveOrders(){
+        return orderListMapper.toDTOList(orderRepository.getAllActiveOrder());
     }
 
 }
