@@ -10,7 +10,7 @@ import org.mapstruct.MappingTarget;
 
 import java.time.OffsetDateTime;
 
-@Mapper(componentModel = "spring",uses = SmallOrderItemListMapper.class)
+@Mapper(componentModel = "spring",uses = {SmallOrderItemMapper.class})
 public interface SmallOrderMapper {
 
     @Mapping(target = "comment", source = "entity.comment")
