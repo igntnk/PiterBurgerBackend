@@ -7,4 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CredentialMapper {
     CredentialDTO toDTO(Credential entity);
+
+    Credential toEntity(CredentialDTO dto);
 }

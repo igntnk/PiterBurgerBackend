@@ -9,10 +9,5 @@ import org.mapstruct.Mapping;
 public interface OrderMapper {
     OrderDTO toDTO(Order entity);
 
-    @Mapping(target = "id" , source = "dto.id")
-    @Mapping(target = "comment" , source = "dto.comment")
-    @Mapping(target = "creationDate" , source = "dto.creationDate")
-    @Mapping(target = "status" , source = "dto.status")
-    @Mapping(target = "items" , source = "dto.items")
     Order toEntity(OrderDTO dto);
 }
