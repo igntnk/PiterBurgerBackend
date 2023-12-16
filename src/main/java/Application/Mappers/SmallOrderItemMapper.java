@@ -5,7 +5,7 @@ import Application.DataBase.Entities.OrderItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = ProductMapper.class)
+@Mapper(componentModel = "spring", uses = SmallProductMapper.class)
 public interface SmallOrderItemMapper {
 
     SmallOrderItemDTO toDTO(OrderItem entity);
