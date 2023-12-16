@@ -1,6 +1,7 @@
 package Application.Services;
 
 import Application.DTO.OrderDTO;
+import Application.DTO.SmallDTOs.SmallOrderDTO;
 import Application.DataBase.Entities.Auth.Roles;
 import Application.DataBase.Entities.Order;
 import Application.DataBase.Entities.OrderItem;
@@ -10,6 +11,8 @@ import Application.DataBase.Repository.ProductRepository;
 import Application.DataBase.Repository.UserRepository;
 import Application.Mappers.OrderListMapper;
 import Application.Mappers.OrderMapper;
+import Application.Mappers.SmallOrderMapper;
+import lombok.AllArgsConstructor;
 import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,28 +28,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
-    @Autowired
+
     OrderRepository orderRepository;
-
-    @Autowired
     OrderMapper orderMapper;
-
-    @Autowired
     OrderListMapper orderListMapper;
+    SmallOrderMapper smallOrderMapper;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     ProductRepository productRepository;
-
-
 
     public OrderDTO setStatusCooking(Long id){
         Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.COOKING);
-        order.setOnCookingDate(new Date());
+        order.setOnCookingDate(OffsetDateTime.now());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -59,7 +56,7 @@ public class OrderService {
     public OrderDTO setStatusServing(Long id){
         Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.SERVING);
-        order.setOnServeDate(new Date());
+        order.setOnServeDate(OffsetDateTime.now());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -84,7 +81,7 @@ public class OrderService {
     public OrderDTO setDoneStatus(Long id){
         Order order = orderRepository.findById(id).orElseThrow();
         order.setStatus(BaseStatus.DONE);
-        order.setDoneDate(new Date());
+        order.setDoneDate(OffsetDateTime.now());
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -92,27 +89,13 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public OrderDTO createOrder(OrderDTO orderRef, String email){
+    public SmallOrderDTO createOrder(SmallOrderDTO orderRef, String email){
         List<Product> allProducts = productRepository.findAll();
 
-        //todo try mapstruct
-        Order order = orderMapper.toEntity(orderRef);
+        Order order = smallOrderMapper.toEntity(orderRef);
 
-//        Order order = new Order(
-//                orderRef.getComment(),
-//                OffsetDateTime.now(),
-//                BaseStatus.ACTIVE,
-//                orderRef.getItems().stream().map(el->
-//                                new OrderItem(
-//                                        el.getCount()
-//                                        ,
-//                                        //todo !
-//                                        allProducts.get(Math.toIntExact(el.getProduct().getId())-1)
-//                                ))
-//                        .collect(Collectors.toSet())
-//        );
         order.setUser(userRepository.getUserByEmail(email));
-        return orderMapper.toDTO(orderRepository.save(order));
+        return smallOrderMapper.toDTO(orderRepository.save(order));
     }
 
     public List<OrderDTO> getActiveOrders(){

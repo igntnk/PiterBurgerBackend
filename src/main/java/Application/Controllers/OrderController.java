@@ -2,6 +2,7 @@ package Application.Controllers;
 
 import Application.Controllers.ControllerAdvice.ExceptionResponse;
 import Application.DTO.OrderDTO;
+import Application.DTO.SmallDTOs.SmallOrderDTO;
 import Application.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,7 +74,7 @@ public class OrderController {
     }
 
     @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public OrderDTO createOrder(@RequestBody OrderDTO order,Principal principal){
+    public SmallOrderDTO createOrder(@RequestBody SmallOrderDTO order, Principal principal){
         return orderService.createOrder(order,principal.getName());
     }
 

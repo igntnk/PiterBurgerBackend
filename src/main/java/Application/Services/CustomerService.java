@@ -9,6 +9,7 @@ import Application.DataBase.Entities.*;
 import Application.DataBase.Entities.Auth.Credential;
 import Application.DataBase.Repository.*;
 import Application.Mappers.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +22,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    @Autowired
     GroupRepository groupRepository;
-
-    @Autowired
     GroupListMapper groupListMapper;
 
-    @Autowired
     ProductRepository productRepository;
-
-    @Autowired
     ProductListMapper productListMapper;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     OrderRepository orderRepository;
-
-    @Autowired
     OrderMapper orderMapper;
-
-    @Autowired
     OrderListMapper orderListMapper;
 
     public List<GroupDTO> getAllGroups(){

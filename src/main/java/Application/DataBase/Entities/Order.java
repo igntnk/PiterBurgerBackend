@@ -8,10 +8,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,20 +27,16 @@ public class Order {
     private String comment;
 
     @Column(name = "creation_date")
-    //@Temporal(TemporalType.TIMESTAMP)
     private OffsetDateTime creationDate;
 
     @Column(name = "on_cook_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date onCookingDate;
+    private OffsetDateTime onCookingDate;
 
     @Column(name = "on_serve_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date onServeDate;
+    private OffsetDateTime onServeDate;
 
     @Column(name = "done_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date doneDate;
+    private OffsetDateTime doneDate;
 
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
