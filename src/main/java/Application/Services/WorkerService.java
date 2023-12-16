@@ -6,6 +6,7 @@ import Application.DataBase.Entities.Order;
 import Application.DataBase.Repository.OrderRepository;
 import Application.Mappers.OrderListMapper;
 import Application.Mappers.OrderMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class WorkerService {
-    @Autowired
-    OrderRepository orderRepository;
 
-    @Autowired
+    OrderRepository orderRepository;
     OrderListMapper orderListMapper;
 
     public List<OrderDTO> getKitchenOrders(){

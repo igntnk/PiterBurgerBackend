@@ -9,6 +9,7 @@ import Application.DataBase.Entities.*;
 import Application.DataBase.Entities.Auth.Credential;
 import Application.DataBase.Repository.*;
 import Application.Mappers.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,38 +17,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    @Autowired
     GroupRepository groupRepository;
-
-    @Autowired
     GroupListMapper groupListMapper;
 
-    @Autowired
     ProductRepository productRepository;
-
-    @Autowired
     ProductListMapper productListMapper;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     OrderRepository orderRepository;
-
-    @Autowired
     OrderMapper orderMapper;
-
-    @Autowired
     OrderListMapper orderListMapper;
 
     public List<GroupDTO> getAllGroups(){
@@ -59,13 +46,7 @@ public class CustomerService {
     }
 
     public int getPrice(List<OrderItemDTO> items){
-        int resultPrice = 0;
-        List<Product> products = productRepository.findAll();
-        for(OrderItemDTO it:items){
-            resultPrice += products.get(Math.toIntExact(it.getProduct().getId())).
-                    getPrice()*it.getCount();
-        }
-        return resultPrice;
+        return items.stream().mapToInt(item->item.getProduct().getPrice()*item.getCount()).sum();
     }
 
     public Response getMyName(String email){

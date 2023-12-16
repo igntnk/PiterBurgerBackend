@@ -27,6 +27,7 @@ public class AdminController {
     @DeleteMapping(path = "delete")
     public ResponseEntity<ExceptionResponse> deleteWorker(@RequestParam Long id){
         adminService.deleteWorker(id);
+
         ExceptionResponse response = new ExceptionResponse("User with id " + id + " deleted" , null, new Date());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
