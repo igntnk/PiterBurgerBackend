@@ -151,9 +151,9 @@ public class Initializer implements CommandLineRunner {
                 "http://localhost:8080/api/file/src/frappeklub.png");
         Product p43 = new Product("Фраппе карамельный","Дробленный лед со сливками, молоком, и карамельном джемом",189, true,
                 "http://localhost:8080/api/file/src/frappekar.png");
-        Product p44 = new Product("Капучино на кокосовой основе","Классический капучино с кокосовым молоком",159, true,
+        Product p44 = new Product("Капучино - кокос","Классический капучино с кокосовым молоком",159, true,
                 "http://localhost:8080/api/file/src/cococapuch.png");
-        Product p45 = new Product("Латтэ на кокосовой основе","Классический латтэ с кокосовым молоком",159, true,
+        Product p45 = new Product("Латтэ - кокос","Классический латтэ с кокосовым молоком",159, true,
                 "http://localhost:8080/api/file/src/cocolatte.png");
 
         productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,
