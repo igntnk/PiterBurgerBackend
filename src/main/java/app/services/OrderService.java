@@ -1,17 +1,23 @@
 package app.services;
 
+import app.db.Entities.*;
+import app.db.Entities.Auth.Credential;
+import app.db.Repository.CredentialRepository;
 import app.dto.OrderDTO;
+import app.dto.OrderItemDTO;
+import app.dto.ProductDTO;
 import app.dto.small.SmallOrderDTO;
-import app.db.Entities.Order;
-import app.db.Entities.Product;
 import app.db.Repository.OrderRepository;
 import app.db.Repository.ProductRepository;
 import app.db.Repository.UserRepository;
+import app.exceptions.IllegalCnagingOrderStatusException;
+import app.exceptions.NoSuchUserException;
 import app.mappers.OrderListMapper;
 import app.mappers.OrderMapper;
 import app.mappers.SmallOrderMapper;
-import app.db.Entities.BaseStatus;
+import app.mappers.UserMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -27,32 +33,23 @@ public class OrderService {
     SmallOrderMapper smallOrderMapper;
 
     UserRepository userRepository;
+    UserMapper userMapper;
 
     ProductRepository productRepository;
 
-    public OrderDTO setStatusCooking(Long id){
-        Order order = orderRepository.findById(id).orElseThrow();
-        order.setStatus(BaseStatus.COOKING);
-        order.setOnCookingDate(OffsetDateTime.now());
-        return orderMapper.toDTO(orderRepository.save(order));
-    }
+    CredentialRepository credentialRepository;
 
-    public OrderDTO setStatusCooked(Long id){
-        Order order = orderRepository.findById(id).orElseThrow();
-        order.setStatus(BaseStatus.COOKED);
-        return orderMapper.toDTO(orderRepository.save(order));
-    }
 
-    public OrderDTO setStatusServing(Long id){
+    public OrderDTO setNextStatus(Long id) throws IllegalCnagingOrderStatusException{
         Order order = orderRepository.findById(id).orElseThrow();
-        order.setStatus(BaseStatus.SERVING);
-        order.setOnServeDate(OffsetDateTime.now());
-        return orderMapper.toDTO(orderRepository.save(order));
-    }
-
-    public OrderDTO setStatusServed(Long id){
-        Order order = orderRepository.findById(id).orElseThrow();
-        order.setStatus(BaseStatus.SERVED);
+        switch (order.getStatus()){
+            case ACTIVE -> order.setStatus(BaseStatus.COOKING);
+            case COOKING -> order.setStatus(BaseStatus.COOKED);
+            case COOKED -> order.setStatus(BaseStatus.SERVING);
+            case SERVING -> order.setStatus(BaseStatus.SERVED);
+            case SERVED -> order.setStatus(BaseStatus.DONE);
+            case DONE -> throw new IllegalCnagingOrderStatusException("Done is the last status");
+        }
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -68,28 +65,28 @@ public class OrderService {
         return orderMapper.toDTO(orderRepository.save(order));
     }
 
-    public OrderDTO setDoneStatus(Long id){
-        Order order = orderRepository.findById(id).orElseThrow();
-        order.setStatus(BaseStatus.DONE);
-        order.setDoneDate(OffsetDateTime.now());
-        return orderMapper.toDTO(orderRepository.save(order));
-    }
-
     public void deleteOrder(Long id){
         orderRepository.deleteById(id);
     }
 
-    public SmallOrderDTO createOrder(SmallOrderDTO orderRef, String email){
+    public OrderDTO createOrder(SmallOrderDTO orderRef, String email) throws NoSuchUserException {
         List<Product> allProducts = productRepository.findAll();
 
         Order order = smallOrderMapper.toEntity(orderRef);
-
-        order.setUser(userRepository.getUserByEmail(email));
-        return smallOrderMapper.toDTO(orderRepository.save(order));
+        User user = userRepository.getUserByEmail(email);
+        if(user == null){
+            throw new NoSuchUserException("User with this email not found");
+        }
+        order.setUser(user);
+        return orderMapper.toDTO(orderRepository.findById(orderRepository.save(order).getId()).orElseThrow());
     }
 
-    public List<OrderDTO> getActiveOrders(){
-        return orderListMapper.toDTOList(orderRepository.getAllActiveOrder());
+    public List<OrderDTO> getWorkerOrders(){
+        return orderListMapper.toDTOList(orderRepository.getWorkerOrders());
+    }
+
+    public List<OrderDTO> getManagerOrders(){
+        return orderListMapper.toDTOList(orderRepository.getManagerOrders());
     }
 
 }

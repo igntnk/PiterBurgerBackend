@@ -1,9 +1,13 @@
 package app.controllers;
 
-import app.controllers.advice.ExceptionResponse;
+import app.messages.CreateOrderMessage;
+import app.messages.ExceptionResponse;
 import app.dto.OrderDTO;
 import app.dto.small.SmallOrderDTO;
+import app.exceptions.IllegalCnagingOrderStatusException;
+import app.exceptions.NoSuchUserException;
 import app.services.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,54 +16,23 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/order")
+@Slf4j
 public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @PutMapping(path = "cooking")
-    public OrderDTO setCookingStatus(@RequestBody Long id){
-        return orderService.setStatusCooking(id);
+    @PutMapping(path = "next")
+    public OrderDTO setCookingStatus(@RequestParam Long id) throws IllegalCnagingOrderStatusException {
+        return orderService.setNextStatus(id);
     }
-
-    @PutMapping(path = "cooked")
-    public OrderDTO setCookedStatus(@RequestBody Long id){
-        return orderService.setStatusCooked(id);
-    }
-
-    @PutMapping(path = "serving")
-    public OrderDTO setServingStatus(@RequestBody Long id){
-        return orderService.setStatusServing(id);
-    }
-
-    @PutMapping(path = "served")
-    public OrderDTO setServedStatus(@RequestBody Long id){
-        return orderService.setStatusServed(id);
-    }
-
-    @PutMapping(path = "freeze")
-    public OrderDTO setFreezeStatus(@RequestBody Long id){
-        return orderService.setStatusFreeze(id);
-    }
-
-    @PutMapping(path = "active")
-    public OrderDTO setActiveStatus(@RequestBody Long id){
-        return orderService.setStatusActive(id);
-    }
-
-    @PutMapping(path = "done")
-    public OrderDTO setDoneStatus(@RequestBody Long id){
-        return orderService.setDoneStatus(id);
-    }
-
 
     @DeleteMapping(path = "delete")
-    public ResponseEntity<ExceptionResponse> deleteOrder(@RequestHeader Long id) {
+    public ResponseEntity<ExceptionResponse> deleteOrder(@RequestParam Long id) {
         orderService.deleteOrder(id);
         ExceptionResponse response = new ExceptionResponse(
                 "Order with id: " + id + " succesifully deleted",
@@ -68,20 +41,42 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(path = "active" , produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderDTO> getActiveOrders(){
-        return orderService.getActiveOrders();
+    @GetMapping(path = "worker" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderDTO> getWorkerOrders(){
+        return orderService.getWorkerOrders();
     }
 
-    @PostMapping(path = "create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public SmallOrderDTO createOrder(@RequestBody SmallOrderDTO order, Principal principal){
-        return orderService.createOrder(order,principal.getName());
+    @GetMapping(path = "manager" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderDTO> getManagerOrders(){
+        return orderService.getManagerOrders();
     }
 
-    @MessageMapping("/orders/{order_id}")
-    @SendTo({"/orders/kitchen","/orders/counter", "orders/manager", "orders/{order_id}"})
-    public OrderDTO action(){
-        return new OrderDTO(null,null,null);
+    @MessageMapping("/next")
+    @SendTo({"/order/manager","/order/worker", "/order/customer"})
+    public OrderDTO setNextStatusOrder(Long id) throws IllegalCnagingOrderStatusException {
+        log.info("Recieved message in /next: " + id);
+        return orderService.setNextStatus(id);
+    }
+
+    @MessageMapping("/freeze")
+    @SendTo({"/order/manager","/order/worker","order/customer"})
+    public OrderDTO setFreezeStatus(Long id){
+        log.info("Recieved message in /freeze: " + id);
+        return orderService.setStatusFreeze(id);
+    }
+
+    @MessageMapping("/active")
+    @SendTo({"/order/manager","/order/worker","order/customer"})
+    public OrderDTO setActiveStatus(Long id){
+        log.info("Recieved message in /active: " + id);
+        return orderService.setStatusActive(id);
+    }
+
+    @MessageMapping("/create")
+    @SendTo({"/order/manager","/order/worker","order/customer"})
+    public OrderDTO createOrder(CreateOrderMessage message) throws NoSuchUserException {
+        log.info("Recieved message in /active: " + message.getOrder());
+        return orderService.createOrder(message.getOrder(), message.getEmail());
     }
 
 }

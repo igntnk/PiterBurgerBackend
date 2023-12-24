@@ -17,12 +17,8 @@ public class ManagerController {
     ManagerService managerService;
 
     @GetMapping(path = "orders", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderDTO> getCounterOrders(){
+    public List<OrderDTO> getManagerOrders(){
         return managerService.getManagerOrders();
     }
 
-    @GetMapping(path = "undone", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderDTO> getUndoneOrders(){
-        return managerService.getUndoneOrders();
-    }
 }

@@ -54,30 +54,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/ws").permitAll()
+                .antMatchers("/order/**").permitAll()
                 .antMatchers( "/swagger-ui/index.html").permitAll()
-                .antMatchers( "/file/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/customer/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/customer/**").permitAll()
+                .antMatchers( "/api/file/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
-                .antMatchers(HttpMethod.POST, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
-                .antMatchers(HttpMethod.DELETE, "/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
-                .antMatchers(HttpMethod.GET, "/api/manager/**").hasAnyAuthority(BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.POST, "/api/manager/**").hasAnyAuthority(BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/manager/**").hasAnyAuthority(BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.DELETE, "/api/manager/**").hasAnyAuthority(BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.GET, "/api/worker/**").hasAnyAuthority(BaseRole.WORKER.getRole())
-                .antMatchers(HttpMethod.PUT, "/api/worker/**").hasAnyAuthority(BaseRole.WORKER.getRole())
+                .antMatchers( "/api/worker/**").hasAnyAuthority(
+                        BaseRole.WORKER.getRole(),
+                        BaseRole.MANAGER.getRole(),
+                        BaseRole.SUPER_USER.getRole())
                 .antMatchers(HttpMethod.POST, "/api/customer/create").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
-                .antMatchers(HttpMethod.GET, "/api/customer/name").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
-                .antMatchers(HttpMethod.POST, "/api/customer/name").hasAnyAuthority(BaseRole.CUSTOMER.getRole())
-                .antMatchers(HttpMethod.POST, "/api/order/**").hasAnyAuthority(
+                .antMatchers("/api/customer/name").hasAnyAuthority(
+                        BaseRole.CUSTOMER.getRole(),
+                        BaseRole.WORKER.getRole(),
+                        BaseRole.MANAGER.getRole(),
+                        BaseRole.SUPER_USER.getRole())
+                .antMatchers(HttpMethod.GET, "/api/customer/**").permitAll()
+                .antMatchers(HttpMethod.PUT,"api/order/next").hasAnyAuthority(
                         BaseRole.WORKER.getRole(),
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
-                .antMatchers(HttpMethod.PUT,
+                .antMatchers(
                         "/api/order/freeze",
                         "/api/order/active",
                         "api/order/delete").hasAnyAuthority(

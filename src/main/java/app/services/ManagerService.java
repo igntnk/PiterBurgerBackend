@@ -19,7 +19,4 @@ public class ManagerService {
         return orderListMapper.toDTOList(orderRepository.getManagerOrders());
     }
 
-    public List<OrderDTO> getUndoneOrders(){
-        return orderListMapper.toDTOList(orderRepository.getUndoneOrders());
-    }
 }

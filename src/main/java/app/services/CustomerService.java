@@ -1,6 +1,6 @@
 package app.services;
 
-import app.controllers.advice.Response;
+import app.messages.Response;
 import app.dto.GroupDTO;
 import app.dto.OrderDTO;
 import app.dto.OrderItemDTO;
@@ -10,11 +10,10 @@ import app.db.Repository.GroupRepository;
 import app.db.Repository.OrderRepository;
 import app.db.Repository.ProductRepository;
 import app.db.Repository.UserRepository;
-import app.mappers.GroupListMapper;
-import app.mappers.OrderListMapper;
-import app.mappers.OrderMapper;
-import app.mappers.ProductListMapper;
+import app.mappers.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,6 +26,7 @@ public class CustomerService {
     GroupListMapper groupListMapper;
 
     ProductRepository productRepository;
+    ProductMapper productMapper;
     ProductListMapper productListMapper;
 
     UserRepository userRepository;
@@ -39,8 +39,8 @@ public class CustomerService {
         return groupListMapper.toDTOlist(groupRepository.findAll());
     }
 
-    public List<ProductDTO> getProductsByGroups(Long id){
-        return productListMapper.toDTOList(productRepository.getProductsByGroup(id));
+    public Page<ProductDTO> getProductsByGroups(Long id,int page,int size){
+        return productRepository.getProductsByGroup(PageRequest.of(page,size),id).map(el->productMapper.toDTO(el));
     }
 
     public int getPrice(List<OrderItemDTO> items){

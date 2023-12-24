@@ -1,6 +1,6 @@
 package app.controllers;
 
-import app.controllers.advice.ExceptionResponse;
+import app.messages.ExceptionResponse;
 import app.dto.CreateUserDTO;
 import app.dto.UserDTO;
 import app.services.AdminService;

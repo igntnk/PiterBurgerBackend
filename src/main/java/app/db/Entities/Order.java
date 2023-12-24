@@ -39,12 +39,11 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true,fetch = FetchType.EAGER)
     @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "user_id",updatable = true)
     private User user;
 

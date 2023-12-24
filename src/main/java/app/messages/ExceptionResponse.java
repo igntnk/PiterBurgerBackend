@@ -1,4 +1,4 @@
-package app.controllers.advice;
+package app.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

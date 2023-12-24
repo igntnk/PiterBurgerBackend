@@ -15,11 +15,8 @@ public class WorkerService {
     OrderRepository orderRepository;
     OrderListMapper orderListMapper;
 
-    public List<OrderDTO> getKitchenOrders(){
-        return orderListMapper.toDTOList(orderRepository.getKitchenOrders());
+    public List<OrderDTO> getWorkerOrders(){
+        return orderListMapper.toDTOList(orderRepository.getWorkerOrders());
     }
 
-    public List<OrderDTO> getCounterOrders(){
-        return orderListMapper.toDTOList(orderRepository.getCounterOrders());
-    }
 }

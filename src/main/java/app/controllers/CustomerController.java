@@ -1,12 +1,13 @@
 package app.controllers;
 
-import app.controllers.advice.Response;
+import app.messages.Response;
 import app.services.CustomerService;
 import app.dto.GroupDTO;
 import app.dto.OrderDTO;
 import app.dto.OrderItemDTO;
 import app.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,10 @@ public class CustomerController {
     }
 
     @GetMapping(path = "grouprod",produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ProductDTO> getProdByGroup(@RequestParam("id") Long id){
-        return customerService.getProductsByGroups(id);
+    public Page<ProductDTO> getProdByGroup(@RequestParam Long id,
+                                           @RequestParam int page,
+                                           @RequestParam int size){
+        return customerService.getProductsByGroups(id,page,size);
     }
 
     @GetMapping(path = "price",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,7 +40,6 @@ public class CustomerController {
     }
 
     @GetMapping(path = "name", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
     public Response getName(Principal principal){
         return customerService.getMyName(principal.getName());
     }
