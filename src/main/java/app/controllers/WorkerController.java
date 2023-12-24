@@ -14,14 +14,10 @@ public class WorkerController {
     @Autowired
     WorkerService workerService;
 
-    @GetMapping(path = "kitchen", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "orders", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderDTO> getKitchenOrders(){
-        return workerService.getKitchenOrders();
+        return workerService.getWorkerOrders();
     }
 
-    @GetMapping(path = "counter", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<OrderDTO> getCounterOrders(){
-        return workerService.getCounterOrders();
-    }
 
 }

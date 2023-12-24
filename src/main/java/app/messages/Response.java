@@ -1,4 +1,4 @@
-package app.controllers.advice;
+package app.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Response {
-    private String message;
+    private String name;
 }

@@ -33,7 +33,7 @@ public class FileController {
         return ResponseEntity.ok().body(minioService.uploadFile(request));
     }
 
-    @GetMapping(value = "/**")
+    @GetMapping(value = "/**" , produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<Object> getFile(HttpServletRequest request) throws IOException {
         String pattern = (String) request.getAttribute(BEST_MATCHING_PATTERN_ATTRIBUTE);
         String filename = new AntPathMatcher().extractPathWithinPattern(pattern, request.getServletPath());

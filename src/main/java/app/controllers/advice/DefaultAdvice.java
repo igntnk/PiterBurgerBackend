@@ -1,51 +1,33 @@
 package app.controllers.advice;
 
-import org.springframework.dao.EmptyResultDataAccessException;
+import app.exceptions.IllegalCnagingOrderStatusException;
+import app.exceptions.NoSuchUserException;
+import app.messages.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
-import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class DefaultAdvice {
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ExceptionResponse> handleException(NoSuchElementException ex){
+    @ExceptionHandler(IllegalCnagingOrderStatusException.class)
+    public ResponseEntity<ExceptionResponse> handleException(IllegalCnagingOrderStatusException ex){
         ExceptionResponse response = new ExceptionResponse(
                 String.format(ex.getMessage()),
-                "Change params' value",
+                "Change order to set status",
                 new Date());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<ExceptionResponse> handleException(HttpRequestMethodNotSupportedException ex){
+    @ExceptionHandler(NoSuchUserException.class)
+    public ResponseEntity<ExceptionResponse> handleException(NoSuchUserException ex){
         ExceptionResponse response = new ExceptionResponse(
                 String.format(ex.getMessage()),
-                "Change HTTP method to correct",
+                "Change user credential",
                 new Date());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    @ExceptionHandler(EmptyResultDataAccessException.class)
-    public ResponseEntity<ExceptionResponse> handleException(EmptyResultDataAccessException ex){
-        ExceptionResponse response = new ExceptionResponse(
-                String.format(ex.getMessage()),
-                "Change data info",
-                new Date());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<ExceptionResponse> handleException(MissingServletRequestParameterException ex){
-        ExceptionResponse response = new ExceptionResponse(
-                String.format(ex.getMessage()),
-                "Change data info",
-                new Date());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
 }
