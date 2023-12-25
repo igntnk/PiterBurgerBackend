@@ -30,8 +30,9 @@ public class CustomerController {
     @GetMapping(path = "grouprod",produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<ProductDTO> getProdByGroup(@RequestParam Long id,
                                            @RequestParam int page,
-                                           @RequestParam int size){
-        return customerService.getProductsByGroups(id,page,size);
+                                           @RequestParam int size,
+                                           @RequestParam String filter){
+        return customerService.getProductsByGroups(id,page,size,filter);
     }
 
     @GetMapping(path = "price",produces = MediaType.APPLICATION_JSON_VALUE)

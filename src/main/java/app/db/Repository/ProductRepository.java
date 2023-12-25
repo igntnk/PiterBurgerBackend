@@ -12,9 +12,9 @@ import java.util.List;
 
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
 
-    @Query(value = "SELECT * FROM product NATURAL JOIN group_product WHERE group_id = :id AND enabled = true",
+    @Query(value = "SELECT * FROM product NATURAL JOIN group_product WHERE group_id = :id AND enabled = true AND name LIKE %:filter%",
         nativeQuery = true)
-    public Page<Product> getProductsByGroup(Pageable pageable, @Param("id")Long id);
+    public Page<Product> getProductsByGroup(Pageable pageable, @Param("id")Long id,@Param("filter")String filter);
 
     List<Product> findAll();
 
