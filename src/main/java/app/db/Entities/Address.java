@@ -7,13 +7,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "adress")
+@Table(name = "address")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Address {
     @Id
-    @Column(name = "adress_id")
+    @Column(name = "address_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

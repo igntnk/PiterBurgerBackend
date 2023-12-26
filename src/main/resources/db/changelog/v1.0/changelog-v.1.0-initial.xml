@@ -1,0 +1,185 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="25-12-23-inital-v1-1" author="Ignat">
+        <createTable tableName="users">
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="fio" type="varchar(255)"/>
+            <column name="cred_id" type="bigserial">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="users" columnNames="user_id"/>
+
+        <createTable tableName="credential">
+            <column name="cred_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="enabled" type="boolean"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="role_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="credential" columnNames="cred_id"/>
+
+        <createTable tableName="roles">
+            <column name="role_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="roles" columnNames="role_id"/>
+
+        <createTable tableName="address">
+            <column name="address_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="address" columnNames="address_id"/>
+
+        <createTable tableName="groups">
+            <column name="group_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="groups" columnNames="group_id"/>
+
+        <createTable tableName="product">
+            <column name="product_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="enabled" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="product" columnNames="product_id"/>
+
+        <createTable tableName="group_product">
+            <column name="product_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="orders">
+            <column name="order_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="varchar(255)"/>
+            <column name="creation_date" type="timestamp"/>
+            <column name="on_cook_date" type="timestamp"/>
+            <column name="on_serve_date" type="timestamp"/>
+            <column name="done_date" type="timestamp"/>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="orders" columnNames="order_id"/>
+
+        <createTable tableName="order_item">
+            <column name="order_item_id" type="bigserial" autoIncrement="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="bigserial">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="order_item" columnNames="order_item_id"/>
+    </changeSet>
+
+    <changeSet id="26-12-23-inital-v1-1" author="Ignat">
+
+        <addForeignKeyConstraint baseColumnNames="cred_id"
+                                 baseTableName="users"
+                                 constraintName="fk_user_credential_id"
+                                 referencedColumnNames="cred_id"
+                                 referencedTableName="credential"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="address"
+                                 constraintName="fk_address_users_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="credential"
+                                 constraintName="fk_credential_role_id"
+                                 referencedColumnNames="role_id"
+                                 referencedTableName="roles"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="group_product"
+                                 constraintName="fk_gr_product_id"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="group_id"
+                                 baseTableName="group_product"
+                                 constraintName="fk_gr_group_id"
+                                 referencedColumnNames="group_id"
+                                 referencedTableName="groups"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="orders"
+                                 constraintName="fk_order_user_id"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="order_item"
+                                 constraintName="fk_oi_order_id"
+                                 referencedColumnNames="order_id"
+                                 referencedTableName="orders"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="order_item"
+                                 constraintName="fk_oi_product_id"
+                                 referencedColumnNames="product_id"
+                                 referencedTableName="product"/>
+    </changeSet>
+    
+    <changeSet id="26-12-23-inital-v1-2" author="Ignat">
+        <addColumn tableName="product">
+            <column name="price" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

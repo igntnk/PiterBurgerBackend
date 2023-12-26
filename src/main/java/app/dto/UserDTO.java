@@ -10,5 +10,5 @@ import java.util.List;
 public class UserDTO {
     private Long id;
     private String FIO;
-    private List<AddressDTO> adress;
+    private List<AddressDTO> address;
 }

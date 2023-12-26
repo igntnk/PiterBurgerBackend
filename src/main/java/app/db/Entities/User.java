@@ -28,7 +28,7 @@ public class User {
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name="user_id", updatable = true)
-    private Set<Address> adress;
+    private Set<Address> address;
 
     public User(String FIO) {
         this.FIO = FIO;
