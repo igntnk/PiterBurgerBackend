@@ -1,8 +1,11 @@
 package app.db.Repository;
 
 import app.db.Entities.Order;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,5 +31,13 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     @Query(value = "SELECT * FROM orders WHERE status NOT LIKE 'DONE' AND status NOT LIKE 'SERVED' AND status NOT LIKE 'FREEZE'",
             nativeQuery = true)
     public List<Order> getWorkerOrders();
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "DELETE FROM orders WHERE user_id = :id",
+            nativeQuery = true
+    )
+    void deleteUserOrders(@Param("id")Long id);
 
 }

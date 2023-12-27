@@ -55,11 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/ws").permitAll()
                 .antMatchers("/order/**").permitAll()
+                .antMatchers("/delete").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
                 .antMatchers( "/swagger-ui/index.html").permitAll()
                 .antMatchers( "/api/file/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
-                .antMatchers( "/api/worker/**").hasAnyAuthority(
+                .antMatchers("/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
+                .antMatchers(HttpMethod.POST, "/api/worker/**").hasAnyAuthority(
                         BaseRole.WORKER.getRole(),
                         BaseRole.MANAGER.getRole(),
                         BaseRole.SUPER_USER.getRole())

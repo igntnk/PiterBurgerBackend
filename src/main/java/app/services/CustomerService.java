@@ -39,8 +39,8 @@ public class CustomerService {
         return groupListMapper.toDTOlist(groupRepository.findAll());
     }
 
-    public Page<ProductDTO> getProductsByGroups(Long id,int page,int size){
-        return productRepository.getProductsByGroup(PageRequest.of(page,size),id).map(el->productMapper.toDTO(el));
+    public Page<ProductDTO> getProductsByGroups(Long id,int page,int size,String filter){
+        return productRepository.getProductsByGroup(PageRequest.of(page,size),id,filter).map(el->productMapper.toDTO(el));
     }
 
     public int getPrice(List<OrderItemDTO> items){

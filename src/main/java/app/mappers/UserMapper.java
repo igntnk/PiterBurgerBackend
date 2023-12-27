@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",uses = AddressMapper.class)
 public interface UserMapper {
+    @Mapping(target = "status", source = "entity.credential.role.role")
     public UserDTO toDTO(User entity);
 
     @Mapping(target = "orders", ignore = true)

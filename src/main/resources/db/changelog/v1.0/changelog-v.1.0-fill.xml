@@ -1,0 +1,1154 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="26-12-23-fill-v1-1" author="Ignat">
+        <insert tableName="roles">
+            <column name="role" value="SUPER_USER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role" value="MANAGER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role" value="WORKER"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="role" value="CUSTOMER"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Бургеры"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Напитки"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Десерты"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Кафе"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Снэки"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Курица"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Говядина"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Новинки"/>
+        </insert>
+
+        <insert tableName="groups">
+            <column name="name" value="Все продукты"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Чизбургер"/>
+            <column name="description" value="Классический гамбургер с добавлением сыра"/>
+            <column name="price" value="69"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cheez.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Чикенбургер"/>
+            <column name="description" value="Бургер с салатом мелкой нарезки, куриной котлетой и фирменным соусом"/>
+            <column name="price" value="65"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/burger.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Гамбургер"/>
+            <column name="description" value="Булка, мясо, лук, кетчуп, горчица"/>
+            <column name="price" value="59"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/gam.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Гранд"/>
+            <column name="description" value="Классический чизбургер, но котлета с четверть фута"/>
+            <column name="price" value="169"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/grand.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Гранд де Люкс"/>
+            <column name="description" value="Гранд с добавлением салата и помидора"/>
+            <column name="price" value="199"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/lux.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Чикет Хит"/>
+            <column name="description" value="Чикенбургер размером с Гранд"/>
+            <column name="price" value="129"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/chikenhit.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Чикен Премьер"/>
+            <column name="description" value="Чикен Хит с добавлением кетчупа, помидора, бекона"/>
+            <column name="price" value="189"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/premier.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Биг Чикен Бургер"/>
+            <column name="description" value="Самый большой куриный бургер"/>
+            <column name="price" value="289"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/bigburger.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Биг Спешиал"/>
+            <column name="description" value="Самый большой бургер с говядиной"/>
+            <column name="price" value="329"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/speshial.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Монблан"/>
+            <column name="description" value="Альпийский сливочный вкус соуса и сырная котлета"/>
+            <column name="price" value="269"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/monblan.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Кола"/>
+            <column name="description" value="Классическая сладкая кола"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cola.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Фанта"/>
+            <column name="description" value="Газированный напиток со вкусом апельсина"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/fanta.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Спрайт"/>
+            <column name="description" value="Газированный напиток со вкусом лимона"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/sprite.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Липтон лимонный"/>
+            <column name="description" value="Холодный чай с лимоном"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/liptonlim.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Липтон зеленый"/>
+            <column name="description" value="Холодный зеленый чай"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/liptonzel.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Капучино"/>
+            <column name="description" value="Классический капучино из кофейных зерен"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/capuch.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Латтэ"/>
+            <column name="description" value="Классический латтэ из кофейных зерен"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/late.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Американо"/>
+            <column name="description" value="Классический американо из кофейных зерен"/>
+            <column name="price" value="79"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/americano.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Апельсиновый сок"/>
+            <column name="description" value="Восстановленный апельсиновый сок"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/orange.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Яблочный сок"/>
+            <column name="description" value="Восстановленый яблочный сок"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/apple.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Апельсиновый пунш"/>
+            <column name="description" value="Сезонный горячий напиток с апельсиново-ягодным вкусом"/>
+            <column name="price" value="109"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/punsh.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Молочный коктейль"/>
+            <column name="description" value="Классический густой холодный молочный коктейль"/>
+            <column name="price" value="119"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/coocktail.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Картошка фри"/>
+            <column name="description" value="Порезанный палочками картофель с солью"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/fri.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Картошка по-деревенски"/>
+            <column name="description" value="Порезанный дольками картофель с приправами"/>
+            <column name="price" value="119"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/derevnya.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Наггетсы"/>
+            <column name="description" value="Маленькие кусочки курицы в хрустящей панировке"/>
+            <column name="price" value="89"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/nuggets.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Стрипсы"/>
+            <column name="description" value="Длинные кусочки курицы в панировке с травами"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/strips.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Куриные крылья"/>
+            <column name="description" value="Острые куриные крылышки в панировке"/>
+            <column name="price" value="109"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/wings.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Сырные кольца"/>
+            <column name="description" value="Сыр в форме колец в панировке"/>
+            <column name="price" value="129"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/rings.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Креветки"/>
+            <column name="description" value="Очищенные креветки в панировке"/>
+            <column name="price" value="189"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/krevetki.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Пирожок вишневый"/>
+            <column name="description" value="Хрустящий пирожок с вишневым джемом"/>
+            <column name="price" value="69"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cherry.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Пирожок с ягодами"/>
+            <column name="description" value="Хрустящий пирожок с ягодным джемом"/>
+            <column name="price" value="79"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/americano.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Мороженое"/>
+            <column name="description" value="Сливочное мороженое"/>
+            <column name="price" value="99"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/icecream.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Флури"/>
+            <column name="description" value="Больше сливочного мороженого с шоколадной крошкой"/>
+            <column name="price" value="149"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/flurry.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Шоколадный торт"/>
+            <column name="description" value="Торт с шоколадным кремом"/>
+            <column name="price" value="199"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/chokocake.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Лимонный торт"/>
+            <column name="description" value="Торт с лимонным кремом и апельсиновой цедрой"/>
+            <column name="price" value="199"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/limon.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Грушевый торт"/>
+            <column name="description" value="Хрустящие коржи и крем с кусочками груши"/>
+            <column name="price" value="199"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/pear.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Клубничный чизкейк"/>
+            <column name="description" value="Классичиский чизкейк с добавлением клубники"/>
+            <column name="price" value="185"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cheezecakeklub.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Классический чизкей"/>
+            <column name="description" value="Хрустящая основка с сливочным сыром"/>
+            <column name="price" value="185"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cheezecakeclass.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Макаруны"/>
+            <column name="description" value="Классические макаруны"/>
+            <column name="price" value="109"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/makaruni.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Круасан"/>
+            <column name="description" value="Свежеиспеченный круасан с вишневым джемом"/>
+            <column name="price" value="129"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/crossaint.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Горячий шоколад"/>
+            <column name="description" value="Какао со всбитыми сливками"/>
+            <column name="price" value="139"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/hotchocolate.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Фраппе клубничный"/>
+            <column name="description" value="Дробленный лед со сливками, молоком, и клубничным джемом"/>
+            <column name="price" value="189"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/frappeklub.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Фраппе карамельный"/>
+            <column name="description" value="Дробленный лед со сливками, молоком, и карамельном джемом"/>
+            <column name="price" value="189"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/frappekar.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Капучино - кокос"/>
+            <column name="description" value="Классический капучино с кокосовым молоком"/>
+            <column name="price" value="159"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cococapuch.png"/>
+        </insert>
+
+        <insert tableName="product">
+            <column name="name" value="Латтэ - кокос"/>
+            <column name="description" value="Классический латтэ с кокосовым молоком"/>
+            <column name="price" value="159"/>
+            <column name="enabled" value="t"/>
+            <column name="photo" value="/api/file/src/cocolatte.png"/>
+        </insert>
+    </changeSet>
+    
+    <changeSet id="26-12-23-fill-v1-2" author="Ignat">
+        <insert tableName="credential">
+            <column name="email" value="ignatik@vk.com"/>
+            <column name="enabled" value="t"/>
+            <column name="password" value="$2a$10$1.CyxL7jRhCm/8myNiqKCeVGjDvohMZlvleRJmE/LduiuZb63FaFW"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="credential">
+            <column name="email" value="pushok@vk.com"/>
+            <column name="enabled" value="t"/>
+            <column name="password" value="$2a$10$1.CyxL7jRhCm/8myNiqKCeVGjDvohMZlvleRJmE/LduiuZb63FaFW"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="credential">
+            <column name="email" value="tolstik@vk.com"/>
+            <column name="enabled" value="t"/>
+            <column name="password" value="$2a$10$1.CyxL7jRhCm/8myNiqKCeVGjDvohMZlvleRJmE/LduiuZb63FaFW"/>
+            <column name="role_id" value="3"/>
+        </insert>
+
+        <insert tableName="credential">
+            <column name="email" value="shaker@vk.com"/>
+            <column name="enabled" value="t"/>
+            <column name="password" value="$2a$10$1.CyxL7jRhCm/8myNiqKCeVGjDvohMZlvleRJmE/LduiuZb63FaFW"/>
+            <column name="role_id" value="4"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="8"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="5"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="4"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="2"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="9"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="6"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="7"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="1"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="1"/>
+            <column name="product_id" value="3"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="10"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="14"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="18"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="20"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="13"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="17"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="21"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="19"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="15"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="22"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="11"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="16"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="2"/>
+            <column name="product_id" value="12"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="33"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="36"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="39"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="34"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="37"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="32"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="31"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="38"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="30"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="40"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="3"/>
+            <column name="product_id" value="35"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="34"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="35"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="36"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="37"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="38"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="39"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="40"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="41"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="42"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="43"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="44"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="4"/>
+            <column name="product_id" value="45"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="23"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="24"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="24"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="25"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="26"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="27"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="28"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="5"/>
+            <column name="product_id" value="29"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="6"/>
+            <column name="product_id" value="2"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="6"/>
+            <column name="product_id" value="6"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="6"/>
+            <column name="product_id" value="7"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="6"/>
+            <column name="product_id" value="8"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="1"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="3"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="4"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="5"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="9"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="7"/>
+            <column name="product_id" value="10"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="8"/>
+            <column name="product_id" value="10"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="8"/>
+            <column name="product_id" value="28"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="8"/>
+            <column name="product_id" value="31"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="8"/>
+            <column name="product_id" value="21"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="1"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="2"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="3"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="4"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="5"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="6"/>
+        </insert>
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="7"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="8"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="9"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="10"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="11"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="12"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="13"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="14"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="15"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="16"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="17"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="18"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="19"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="20"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="21"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="22"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="23"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="24"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="25"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="26"/>
+        </insert>
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="27"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="28"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="29"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="30"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="31"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="32"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="33"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="34"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="35"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="36"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="37"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="38"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="39"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="40"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="41"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="42"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="43"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="44"/>
+        </insert>
+
+        <insert tableName="group_product">
+            <column name="group_id" value="9"/>
+            <column name="product_id" value="45"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="26-12-23-fill-v1-3" author="Ignat">
+        <insert tableName="users">
+            <column name="fio" value="Илюшенька"/>
+            <column name="cred_id" value="1"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="fio" value="Данечка"/>
+            <column name="cred_id" value="2"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="fio" value="Андреюшка"/>
+            <column name="cred_id" value="3"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="fio" value="Матвейчик"/>
+            <column name="cred_id" value="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="26-12-23-fill-v1-4" author="Ignat">
+        <insert tableName="orders">
+            <column name="comment" value="Горячее и холодное раздельно"/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="1"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="comment" value="Удачи"/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="2"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="comment" value="Аккуратно упакуйте"/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="2"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="comment" value="Кто ты такой"/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="3"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="comment" value="А вы знали что если у вас сопли..."/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="4"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="comment" value="Это значит, что ваш домовой"/>
+            <column name="creation_date" value="${now}"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="user_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="26-12-23-fill-v1-5" author="Ignat">
+        <insert tableName="order_item">
+            <column name="count" value="4"/>
+            <column name="product_id" value="1"/>
+            <column name="order_id" value="1"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="2"/>
+            <column name="product_id" value="42"/>
+            <column name="order_id" value="1"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="2"/>
+            <column name="product_id" value="2"/>
+            <column name="order_id" value="1"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="1"/>
+            <column name="product_id" value="2"/>
+            <column name="order_id" value="2"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="1"/>
+            <column name="product_id" value="13"/>
+            <column name="order_id" value="2"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="28"/>
+            <column name="product_id" value="2"/>
+            <column name="order_id" value="3"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="144"/>
+            <column name="product_id" value="1"/>
+            <column name="order_id" value="4"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="1"/>
+            <column name="product_id" value="5"/>
+            <column name="order_id" value="4"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="22"/>
+            <column name="product_id" value="3"/>
+            <column name="order_id" value="5"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="12"/>
+            <column name="product_id" value="1"/>
+            <column name="order_id" value="5"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="3"/>
+            <column name="product_id" value="2"/>
+            <column name="order_id" value="6"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="3"/>
+            <column name="product_id" value="39"/>
+            <column name="order_id" value="6"/>
+        </insert>
+
+        <insert tableName="order_item">
+            <column name="count" value="3"/>
+            <column name="product_id" value="22"/>
+            <column name="order_id" value="6"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -7,13 +7,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "adress")
+@Table(name = "address")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Address {
     @Id
-    @Column(name = "adress_id")
+    @Column(name = "address_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,7 +25,7 @@ public class Address {
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "adress")
+    @Column(name = "address")
     private String address;
 
 }

@@ -6,7 +6,10 @@ import app.dto.UserDTO;
 import app.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -19,17 +22,15 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping(path = "create")
+    @PostMapping(path = "create",produces = MediaType.APPLICATION_JSON_VALUE)
     public UserDTO createUser(@RequestBody CreateUserDTO dto){
         return adminService.createUser(dto);
     }
 
-    @DeleteMapping(path = "delete")
-    public ResponseEntity<ExceptionResponse> deleteWorker(@RequestParam Long id){
-        adminService.deleteWorker(id);
-
-        ExceptionResponse response = new ExceptionResponse("User with id " + id + " deleted" , null, new Date());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @MessageMapping("/delete")
+    @SendTo("/order/admin")
+    public Long deleteWorker(@RequestParam Long id){
+        return adminService.deleteWorker(id);
     }
 
     @GetMapping(path = "workers")

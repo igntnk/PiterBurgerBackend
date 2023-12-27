@@ -1,5 +1,7 @@
 package app.services;
 
+import app.db.Repository.CredentialRepository;
+import app.db.Repository.OrderRepository;
 import app.dto.CreateUserDTO;
 import app.dto.UserDTO;
 import app.db.Entities.Auth.BaseRole;
@@ -26,19 +28,24 @@ public class AdminService {
     UserMapper userMapper;
     UserListMapper userListMapper;
 
+    CredentialRepository credentialRepository;
+
+    OrderRepository orderRepository;
+
     public UserDTO createUser(CreateUserDTO dto){
-        User user = new User(dto.getFIO());
-        Credential credential = new Credential(true,dto.getEmail(), dto.getPassword(),
-                Stream.of(new Roles(BaseRole.valueOf(dto.getRole()))).collect(Collectors.toSet()));
+        User user = new User(dto.getFio());
+        Credential credential = new Credential(true,dto.getEmail(), dto.getPassword(),new Roles(BaseRole.valueOf(dto.getRole())));
         user.setCredential(credential);
         return userMapper.toDTO(userRepository.save(user));
     }
 
     public List<UserDTO> getAllWorkers(){
-        return userListMapper.toDTOList(userRepository.findAll());
+        return userListMapper.toDTOList(userRepository.getAllEnabledUsers());
     }
 
-    public void deleteWorker(Long id){
-        userRepository.deleteById(id);
+    public Long deleteWorker(Long id){
+        credentialRepository.disableUserById(id);
+        orderRepository.deleteUserOrders(id);
+        return id;
     }
 }
