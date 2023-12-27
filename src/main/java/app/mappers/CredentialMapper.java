@@ -11,6 +11,6 @@ public interface CredentialMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
-    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "role", ignore = true)
     Credential toEntity(CredentialDTO dto);
 }

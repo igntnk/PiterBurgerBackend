@@ -25,7 +25,7 @@ public class Address {
     @Column(name = "active")
     private boolean active;
 
-    @Column(name = "adress")
+    @Column(name = "address")
     private String address;
 
 }

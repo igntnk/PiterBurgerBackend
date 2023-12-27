@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "burgerboy"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "M@g1cCoW"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - "backend"
+
+  minio4:
+    image: minio/minio:latest
+    volumes:
+      - ./mdata:/data
+    ports:
+      - '9000:9000'
+      - '9090:9090'
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: M@g1cCoW
+    command: server /data --console-address ":9090"
+
+    networks:
+      - "backend"
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+

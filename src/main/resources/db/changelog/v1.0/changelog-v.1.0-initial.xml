@@ -129,49 +129,65 @@
                                  baseTableName="users"
                                  constraintName="fk_user_credential_id"
                                  referencedColumnNames="cred_id"
-                                 referencedTableName="credential"/>
+                                 referencedTableName="credential"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="address"
                                  constraintName="fk_address_users_id"
                                  referencedColumnNames="user_id"
-                                 referencedTableName="users"/>
+                                 referencedTableName="users"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="role_id"
                                  baseTableName="credential"
                                  constraintName="fk_credential_role_id"
                                  referencedColumnNames="role_id"
-                                 referencedTableName="roles"/>
+                                 referencedTableName="roles"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="group_product"
                                  constraintName="fk_gr_product_id"
                                  referencedColumnNames="product_id"
-                                 referencedTableName="product"/>
+                                 referencedTableName="product"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="group_id"
                                  baseTableName="group_product"
                                  constraintName="fk_gr_group_id"
                                  referencedColumnNames="group_id"
-                                 referencedTableName="groups"/>
+                                 referencedTableName="groups"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="orders"
                                  constraintName="fk_order_user_id"
                                  referencedColumnNames="user_id"
-                                 referencedTableName="users"/>
+                                 referencedTableName="users"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="order_id"
                                  baseTableName="order_item"
                                  constraintName="fk_oi_order_id"
                                  referencedColumnNames="order_id"
-                                 referencedTableName="orders"/>
+                                 referencedTableName="orders"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="order_item"
                                  constraintName="fk_oi_product_id"
                                  referencedColumnNames="product_id"
-                                 referencedTableName="product"/>
+                                 referencedTableName="product"
+                                 onDelete="CASCADE"
+                                 onUpdate="CASCADE"/>
     </changeSet>
     
     <changeSet id="26-12-23-inital-v1-2" author="Ignat">

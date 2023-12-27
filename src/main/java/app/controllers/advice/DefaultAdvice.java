@@ -30,4 +30,12 @@ public class DefaultAdvice {
         return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> handleException(IllegalArgumentException ex){
+        ExceptionResponse response = new ExceptionResponse(
+                String.format(ex.getMessage()),
+                "Change user id",
+                new Date());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }

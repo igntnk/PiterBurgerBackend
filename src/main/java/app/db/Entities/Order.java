@@ -3,10 +3,12 @@ package app.db.Entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -39,12 +41,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true,fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id",updatable = true)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id",updatable = true,nullable = false)
     private User user;
 
 
