@@ -31,7 +31,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="role" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
         <addPrimaryKey tableName="roles" columnNames="role_id"/>

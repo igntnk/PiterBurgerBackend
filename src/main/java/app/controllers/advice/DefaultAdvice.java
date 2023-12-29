@@ -1,5 +1,6 @@
 package app.controllers.advice;
 
+import app.exceptions.EmailIsInUseExeption;
 import app.exceptions.IllegalCnagingOrderStatusException;
 import app.exceptions.NoSuchUserException;
 import app.messages.ExceptionResponse;
@@ -37,5 +38,14 @@ public class DefaultAdvice {
                 "Change user id",
                 new Date());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailIsInUseExeption.class)
+    public ResponseEntity<ExceptionResponse> handleException(EmailIsInUseExeption ex){
+        ExceptionResponse response = new ExceptionResponse(
+                String.format(ex.getMessage()),
+                "Change email to registrate",
+                new Date());
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 }

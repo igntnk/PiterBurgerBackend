@@ -1,15 +1,13 @@
 package app.services;
 
+import app.db.Entities.Auth.BaseRole;
+import app.db.Entities.Auth.Credential;
+import app.db.Entities.Auth.Roles;
+import app.db.Repository.*;
+import app.dto.*;
+import app.exceptions.EmailIsInUseExeption;
 import app.messages.Response;
-import app.dto.GroupDTO;
-import app.dto.OrderDTO;
-import app.dto.OrderItemDTO;
-import app.dto.ProductDTO;
 import app.db.Entities.User;
-import app.db.Repository.GroupRepository;
-import app.db.Repository.OrderRepository;
-import app.db.Repository.ProductRepository;
-import app.db.Repository.UserRepository;
 import app.mappers.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,10 +28,15 @@ public class CustomerService {
     ProductListMapper productListMapper;
 
     UserRepository userRepository;
+    UserMapper userMapper;
 
     OrderRepository orderRepository;
     OrderMapper orderMapper;
     OrderListMapper orderListMapper;
+
+    CredentialRepository credentialRepository;
+
+    RolesRepository rolesRepository;
 
     public List<GroupDTO> getAllGroups(){
         return groupListMapper.toDTOlist(groupRepository.findAll());
@@ -64,6 +67,17 @@ public class CustomerService {
 
     public List<OrderDTO> getActiveOrders(String email){
         return orderListMapper.toDTOList(orderRepository.getActiveOrders(email));
+    }
+
+    public UserDTO registrateUser(String email, String password) throws EmailIsInUseExeption {
+        if(credentialRepository.getCredByEmail(email) != null){
+            throw new EmailIsInUseExeption("Email " + email + " is already in use");
+        }
+
+        User user = new User("Без Имени");
+        Credential cred = new Credential(true,email,password,rolesRepository.findById(4L).orElseThrow());
+        user.setCredential(cred);
+        return userMapper.toDTO(userRepository.save(user));
     }
 
 }

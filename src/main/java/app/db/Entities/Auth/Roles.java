@@ -18,6 +18,7 @@ public class Roles{
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role", unique = true)
     private BaseRole role;
 
     public Roles(BaseRole role) {
