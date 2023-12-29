@@ -1,11 +1,10 @@
 package app.controllers;
 
+import app.dto.*;
+import app.exceptions.EmailIsInUseExeption;
+import app.messages.RegistrationMessage;
 import app.messages.Response;
 import app.services.CustomerService;
-import app.dto.GroupDTO;
-import app.dto.OrderDTO;
-import app.dto.OrderItemDTO;
-import app.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -60,6 +59,11 @@ public class CustomerController {
     @GetMapping(path = "active", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<OrderDTO> getActive(Principal principal) {
         return customerService.getActiveOrders(principal.getName());
+    }
+
+    @PostMapping(path="registration", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserDTO registrateUser(@RequestBody RegistrationMessage message) throws EmailIsInUseExeption {
+        return customerService.registrateUser(message.getEmail(), message.getPassword());
     }
 
 }

@@ -1,6 +1,5 @@
-package app.dto;
+package app.messages;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserDTO {
-    private String fio;
+public class RegistrationMessage {
     private String email;
     private String password;
-    private String role;
-
-
 }
