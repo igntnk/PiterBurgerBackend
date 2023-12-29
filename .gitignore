@@ -2,8 +2,7 @@ HELP.md
 .gradle
 src/main/resources/application.properties
 build/
-mdata/
-.meta
+mdata/.minio.sys/buckets/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
