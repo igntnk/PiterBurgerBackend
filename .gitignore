@@ -2,7 +2,8 @@ HELP.md
 .gradle
 src/main/resources/application.properties
 build/
-/mdata\
+mdata/
+.meta
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
