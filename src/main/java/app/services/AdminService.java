@@ -1,14 +1,18 @@
 package app.services;
 
+import app.db.Entities.Product;
 import app.db.Repository.CredentialRepository;
 import app.db.Repository.OrderRepository;
+import app.db.Repository.ProductRepository;
 import app.dto.CreateUserDTO;
+import app.dto.ProductDTO;
 import app.dto.UserDTO;
 import app.db.Entities.Auth.BaseRole;
 import app.db.Entities.Auth.Credential;
 import app.db.Entities.Auth.Roles;
 import app.db.Entities.User;
 import app.db.Repository.UserRepository;
+import app.mappers.ProductMapper;
 import app.mappers.UserListMapper;
 import app.mappers.UserMapper;
 import lombok.AllArgsConstructor;
@@ -32,6 +36,9 @@ public class AdminService {
 
     OrderRepository orderRepository;
 
+    ProductRepository productRepository;
+    ProductMapper productMapper;
+
     public UserDTO createUser(CreateUserDTO dto){
         User user = new User(dto.getFio());
         Credential credential = new Credential(true,dto.getEmail(), dto.getPassword(),new Roles(BaseRole.valueOf(dto.getRole())));
@@ -47,5 +54,9 @@ public class AdminService {
         credentialRepository.disableUserById(id);
         orderRepository.deleteUserOrders(id);
         return id;
+    }
+
+    public ProductDTO createProduct(ProductDTO product){
+        return productMapper.toDTO(productRepository.save(productMapper.toEntity(product)));
     }
 }

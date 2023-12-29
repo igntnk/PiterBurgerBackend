@@ -11,6 +11,7 @@ import app.db.Repository.OrderRepository;
 import app.db.Repository.ProductRepository;
 import app.db.Repository.UserRepository;
 import app.exceptions.IllegalCnagingOrderStatusException;
+import app.exceptions.NoSuchOrderException;
 import app.exceptions.NoSuchUserException;
 import app.mappers.OrderListMapper;
 import app.mappers.OrderMapper;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -87,6 +89,10 @@ public class OrderService {
 
     public List<OrderDTO> getManagerOrders(){
         return orderListMapper.toDTOList(orderRepository.getManagerOrders());
+    }
+
+    public OrderDTO getOrderByID(Long id){
+        return orderMapper.toDTO(orderRepository.findById(id).orElseThrow());
     }
 
 }

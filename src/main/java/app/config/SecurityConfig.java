@@ -60,7 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/file/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/auth/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
-                .antMatchers("/api/admin/**").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
+                .antMatchers(HttpMethod.POST, "/api/admin/create").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
+                .antMatchers(HttpMethod.GET, "/api/admin/workers").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
+                .antMatchers(HttpMethod.DELETE, "/api/admin/delete").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
                 .antMatchers(HttpMethod.POST, "/api/worker/**").hasAnyAuthority(
                         BaseRole.WORKER.getRole(),
                         BaseRole.MANAGER.getRole(),
@@ -81,6 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/order/freeze",
                         "/api/order/active",
                         "api/order/delete").hasAnyAuthority(
+                        BaseRole.SUPER_USER.getRole(),
+                        BaseRole.MANAGER.getRole())
+                .antMatchers(
+                        "/api/order/manager").hasAnyAuthority(
                         BaseRole.SUPER_USER.getRole(),
                         BaseRole.MANAGER.getRole())
                 .anyRequest().authenticated()

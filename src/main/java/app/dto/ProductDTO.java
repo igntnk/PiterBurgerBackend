@@ -12,4 +12,5 @@ public class ProductDTO {
     private String photo;
     private int price;
     private boolean enabled;
+
 }
