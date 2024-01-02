@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/ws").permitAll()
+                .antMatchers("/api/message").permitAll()
                 .antMatchers("/order/**").permitAll()
                 .antMatchers("/delete").hasAnyAuthority(BaseRole.SUPER_USER.getRole())
                 .antMatchers( "/swagger-ui/index.html").permitAll()

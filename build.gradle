@@ -38,6 +38,7 @@ dependencies {
 	implementation 'org.springframework:spring-messaging:6.0.9'
 	implementation 'org.testcontainers:junit-jupiter:1.19.3'
 	implementation 'org.apache.maven.plugins:maven-surefire-plugin:3.2.3'
+	implementation 'org.springframework.kafka:spring-kafka'
 	implementation platform('org.testcontainers:testcontainers-bom:1.19.3')
 	testImplementation 'junit:junit:4.13.1'
 	testImplementation 'org.testng:testng:7.1.0'
