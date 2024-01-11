@@ -69,7 +69,7 @@ public class CustomerService {
         return orderListMapper.toDTOList(orderRepository.getActiveOrders(email));
     }
 
-    public UserDTO registrateUser(String email, String password) throws EmailIsInUseExeption {
+    public UserDTO registrateUser(String email, String password){
         if(credentialRepository.getCredByEmail(email) != null){
             throw new EmailIsInUseExeption("Email " + email + " is already in use");
         }

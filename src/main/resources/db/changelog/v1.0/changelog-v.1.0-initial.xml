@@ -5,7 +5,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="fio" type="varchar(255)"/>
-            <column name="cred_id" type="bigserial">
+            <column name="cred_id" type="bigint">
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
@@ -20,7 +20,7 @@
             </column>
             <column name="enabled" type="boolean"/>
             <column name="password" type="varchar(255)"/>
-            <column name="role_id" type="bigserial">
+            <column name="role_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -46,7 +46,7 @@
             <column name="address" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="bigserial">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -80,10 +80,10 @@
         <addPrimaryKey tableName="product" columnNames="product_id"/>
 
         <createTable tableName="group_product">
-            <column name="product_id" type="bigserial">
+            <column name="product_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="group_id" type="bigserial">
+            <column name="group_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -100,7 +100,7 @@
             <column name="status" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="bigserial">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -111,13 +111,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="count" type="integer">
-                <constraints nullable="false"/>
+                <constraints />
             </column>
-            <column name="product_id" type="bigserial">
-                <constraints nullable="false"/>
+            <column name="product_id" type="bigint">
+                <constraints/>
             </column>
-            <column name="order_id" type="bigserial">
-                <constraints nullable="false"/>
+            <column name="order_id" type="bigint">
+                <constraints/>
             </column>
         </createTable>
         <addPrimaryKey tableName="order_item" columnNames="order_item_id"/>

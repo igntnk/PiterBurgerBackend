@@ -41,7 +41,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private BaseStatus status;
 
-    @OneToMany(orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name="order_id", updatable = true)
     private Set<OrderItem> items;

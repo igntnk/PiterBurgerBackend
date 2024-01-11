@@ -52,28 +52,28 @@ public class OrderController {
     }
 
     @MessageMapping("/next")
-    @SendTo({"/order/manager","/order/worker", "/order/customer"})
+    @SendTo({"/order/manager","/order/worker", "/order/history"})
     public OrderDTO setNextStatusOrder(Long id) throws IllegalCnagingOrderStatusException {
         log.info("Recieved message in /next: " + id);
         return orderService.setNextStatus(id);
     }
 
     @MessageMapping("/freeze")
-    @SendTo({"/order/manager","/order/worker","order/customer"})
+    @SendTo({"/order/manager","/order/worker","/order/history"})
     public OrderDTO setFreezeStatus(Long id){
         log.info("Recieved message in /freeze: " + id);
         return orderService.setStatusFreeze(id);
     }
 
     @MessageMapping("/active")
-    @SendTo({"/order/manager","/order/worker","order/customer"})
+    @SendTo({"/order/manager","/order/worker","/order/history"})
     public OrderDTO setActiveStatus(Long id){
         log.info("Recieved message in /active: " + id);
         return orderService.setStatusActive(id);
     }
 
     @MessageMapping("/create")
-    @SendTo({"/order/manager","/order/worker","order/customer"})
+    @SendTo({"/order/manager","/order/worker","/order/customer","/order/history"})
     public OrderDTO createOrder(CreateOrderMessage message) throws NoSuchUserException {
         log.info("Recieved message in /active: " + message.getOrder());
         return orderService.createOrder(message.getOrder(), message.getEmail());

@@ -55,8 +55,4 @@ public class AdminService {
         orderRepository.deleteUserOrders(id);
         return id;
     }
-
-    public ProductDTO createProduct(ProductDTO product){
-        return productMapper.toDTO(productRepository.save(productMapper.toEntity(product)));
-    }
 }

@@ -2,25 +2,20 @@ package app.services;
 
 import app.db.Entities.*;
 import app.db.Entities.Auth.Credential;
-import app.db.Repository.CredentialRepository;
+import app.db.Repository.*;
 import app.dto.OrderDTO;
 import app.dto.OrderItemDTO;
 import app.dto.ProductDTO;
 import app.dto.small.SmallOrderDTO;
-import app.db.Repository.OrderRepository;
-import app.db.Repository.ProductRepository;
-import app.db.Repository.UserRepository;
 import app.exceptions.IllegalCnagingOrderStatusException;
 import app.exceptions.NoSuchOrderException;
 import app.exceptions.NoSuchUserException;
-import app.mappers.OrderListMapper;
-import app.mappers.OrderMapper;
-import app.mappers.SmallOrderMapper;
-import app.mappers.UserMapper;
+import app.mappers.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.function.Supplier;
@@ -33,6 +28,9 @@ public class OrderService {
     OrderMapper orderMapper;
     OrderListMapper orderListMapper;
     SmallOrderMapper smallOrderMapper;
+
+    OrderItemRepository orderItemRepository;
+    SmallOrderItemListMapper smallOrderItemListMapper;
 
     UserRepository userRepository;
     UserMapper userMapper;
@@ -71,7 +69,8 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public OrderDTO createOrder(SmallOrderDTO orderRef, String email) throws NoSuchUserException {
+    @Transactional
+    public OrderDTO createOrder(SmallOrderDTO orderRef, String email) {
         List<Product> allProducts = productRepository.findAll();
 
         Order order = smallOrderMapper.toEntity(orderRef);
@@ -80,6 +79,7 @@ public class OrderService {
             throw new NoSuchUserException("User with this email not found");
         }
         order.setUser(user);
+
         return orderMapper.toDTO(orderRepository.findById(orderRepository.save(order).getId()).orElseThrow());
     }
 
