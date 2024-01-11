@@ -16,7 +16,7 @@ services:
   minio4:
     image: minio/minio:latest
     volumes:
-      - ./mdata:/data
+      - ../mdata:/data
     ports:
       - '9000:9000'
       - '9090:9090'

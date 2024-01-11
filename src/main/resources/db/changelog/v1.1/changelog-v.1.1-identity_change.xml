@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
-    <include file="v1.0/changelog-v.1.0-initial.xml" relativeToChangelogFile="true"/>
-    <include file="v1.0/changelog-v.1.0-fill.xml" relativeToChangelogFile="true"/>
-    <include file="v1.1/changelog-v.1.1-identity_change.xml" relativeToChangelogFile="true"/>
+    <changeSet id="05-01-24-identity_change-v1-0" author="Ignat">
+        <sql dbms="postgresql"
+             endDelimiter="\nGO"
+             splitStatements="true"
+             stripComments="false">
+            ALTER TABLE product ALTER COLUMN product_id DROP IDENTITY
+        </sql>
+    </changeSet>
 </databaseChangeLog>

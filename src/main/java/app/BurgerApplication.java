@@ -19,13 +19,6 @@ import static org.springframework.context.annotation.FilterType.CUSTOM;
 @EnableKafka
 public class BurgerApplication {
 
-	@KafkaListener(topics="msg")
-	public void orderListener(ConsumerRecord<Long, GroupDTO> record){
-		System.out.println(record.partition());
-		System.out.println(record.key());
-		System.out.println(record.value());
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(BurgerApplication.class, args);
 	}
